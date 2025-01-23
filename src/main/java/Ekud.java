@@ -15,7 +15,7 @@ public class Ekud {
                 break;
             }  else if (Objects.equals(command, "list")) {
                 if (list.isEmpty()) {
-                    System.out.println("List is empty!");
+                    System.out.println("List is empty! Yippee!");
                 } else {
                     System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < list.size(); i++) {
@@ -79,6 +79,17 @@ public class Ekud {
                         list.add(new Event(task, startTime, endTime));
                         leftCheck(list);
                     }
+                }
+                buffer();
+            } else if (Objects.equals(command, "delete")) {
+                if (isNotInteger(input, 10) || Integer.parseInt(input) > list.size()) {
+                    System.out.println("This task does not exist :( Try again!");
+                } else {
+                    int task = Integer.parseInt(input) - 1;
+                    System.out.println("Omgie, removing this task from the list!");
+                    System.out.println(list.get(task).display());
+                    list.remove(task);
+                    leftCheck(list);
                 }
                 buffer();
             } else {
@@ -172,18 +183,18 @@ public class Ekud {
                 EEEEE K  KK  UUU  DDD   !""";
         System.out.println("____________________________\n");
         System.out.println("Hello! I'm\n" + logo);
-        /*System.out.println("""
+        System.out.println("""
                 ╱|、
                 (^ˎ ^7 \s
                 |、˜〵         \s
                 じしˍ,)ノ
-                """);*/
+                """);
         System.out.println("What can I do for you?\n");
         System.out.println("____________________________\n");
     }
 
     public static void buffer() {
-        //System.out.println("ฅ^•ﻌ•^ฅ");
+        System.out.println("ฅ^•ﻌ•^ฅ");
         System.out.println("____________________________\n");
     }
 
