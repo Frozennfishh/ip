@@ -1,33 +1,56 @@
 import javax.swing.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 public class Ekud {
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<Task> list = new ArrayList<>();
 
         intro();
 
         while (true) {
-            String input = scanner.nextLine();
-            if (Objects.equals(input, "bye")) {
+            String temp = scanner.nextLine();
+            String[] input = temp.split(" ");
+            if (Objects.equals(input[0], "bye")) {
                 break;
-            } else if (Objects.equals(input, "list")) {
+            } else if (Objects.equals(input[0], "list")) {
                 if (list.isEmpty()) {
                     System.out.println("List is empty!");
                 } else {
+                    System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < list.size(); i++) {
-                        System.out.println(i+1 + ". " + list.get(i));
+                        list.get(i).display();
                     }
                 }
                 buffer();
+            } else if (Objects.equals(input[0], "mark")) {
+                if (input.length == 1 || !isInteger(input[1], 10)) {
+                    System.out.println("Wrong input, try again!");
+                } else if (Integer.parseInt(input[1]) > list.size()) {
+                    System.out.println("This task does not exist :( Try again!");
+                } else {
+                    int index = Integer.parseInt(input[1]) - 1;
+                    list.get(index).setDone();
+                    System.out.println("Yippee marking this task as done!");
+                    list.get(index).display();
+                }
+                buffer();
+            } else if (Objects.equals(input[0], "unmark")) {
+                if (input.length == 1 || !isInteger(input[1], 10)) {
+                    System.out.println("Wrong input, try again!");
+                } else if (Integer.parseInt(input[1]) > list.size()) {
+                    System.out.println("This task does not exist :( Try again!");
+                } else {
+                    int index = Integer.parseInt(input[1]) - 1;
+                    list.get(index).setUndone();
+                    System.out.println("Awww marking this task undone :(");
+                    list.get(index).display();
+                }
+                buffer();
             } else {
-                System.out.println("added: " + input);
-                list.add(input);
+                System.out.println("added: " + temp);
+                list.add(new Task(temp));
                 buffer();
             }
         }
@@ -59,5 +82,38 @@ public class Ekud {
         System.out.println("Bye. Hope to see you again soon!\n");
         System.out.println("____________________________\n");
         System.exit(0);
+    }
+
+    static class Task {
+        int done = 0;
+        String name;
+
+        public Task(String name) {
+            this.name = name;
+        }
+
+        public void setDone() {
+            this.done = 1;
+        }
+
+        public void setUndone() {
+            this.done = 0;
+        }
+
+        public void display() {
+            System.out.println("[" + (done == 1 ? "X" : " ") + "] " + name);
+        }
+    }
+
+    public static boolean isInteger(String s, int radix) {
+        if(s.isEmpty()) return false;
+        for(int i = 0; i < s.length(); i++) {
+            if(i == 0 && s.charAt(i) == '-') {
+                if(s.length() == 1) return false;
+                else continue;
+            }
+            if(Character.digit(s.charAt(i),radix) < 0) return false;
+        }
+        return true;
     }
 }
