@@ -172,18 +172,18 @@ public class Ekud {
                 EEEEE K  KK  UUU  DDD   !""";
         System.out.println("____________________________\n");
         System.out.println("Hello! I'm\n" + logo);
-        System.out.println("""
+        /*System.out.println("""
                 ╱|、
                 (^ˎ ^7 \s
                 |、˜〵         \s
                 じしˍ,)ノ
-                """);
+                """);*/
         System.out.println("What can I do for you?\n");
         System.out.println("____________________________\n");
     }
 
     public static void buffer() {
-        System.out.println("ฅ^•ﻌ•^ฅ");
+        //System.out.println("ฅ^•ﻌ•^ฅ");
         System.out.println("____________________________\n");
     }
 
