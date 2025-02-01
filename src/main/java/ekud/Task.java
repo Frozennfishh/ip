@@ -1,3 +1,5 @@
+package ekud;
+
 public class Task {
     int done;
     String name;

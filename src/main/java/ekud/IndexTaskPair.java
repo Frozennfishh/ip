@@ -1,3 +1,5 @@
+package ekud;
+
 public class IndexTaskPair {
     private int index;
     private final Task task;

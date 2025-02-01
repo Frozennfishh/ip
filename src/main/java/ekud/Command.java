@@ -1,3 +1,5 @@
+package ekud;
+
 import java.time.LocalDate;
 
 public class Command {

@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import ekud.*;
 
 public class Ekud {
     private Storage storage;

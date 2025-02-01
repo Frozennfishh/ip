@@ -1,3 +1,5 @@
+package ekud;
+
 public class Todo extends Task {
     public Todo(String name, int done) {
         super(name, done);

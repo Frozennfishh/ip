@@ -1,3 +1,5 @@
+package ekud;
+
 import java.util.Scanner;
 
 public class Ui {
