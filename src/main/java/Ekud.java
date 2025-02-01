@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Objects;
@@ -54,12 +55,32 @@ public class Ekud {
         }
     }
 
+    private static void saveToFile(String filePath, ArrayList<Task> list) {
+        try (FileWriter writer = new FileWriter(filePath)) {
+            for (Task task : list) {
+                if (task instanceof Todo) {
+                    writer.write("T|" + task.name + "|" + task.done + "\n");
+                } else if (task instanceof Deadline) {
+                    Deadline d = (Deadline) task;
+                    writer.write("D|" + d.name + "|" + d.due + "|" + d.done + "\n");
+                } else if (task instanceof Event) {
+                    Event e = (Event) task;
+                    writer.write("E|" + e.name + "|" + e.start + "|" + e.end + "|" + e.done + "\n");
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving to file.");
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) throws FileNotFoundException {
+        String filePath = "data/list.txt";
 
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> list = new ArrayList<>();
 
-        loadFileContent("data/list.txt", list);
+        loadFileContent(filePath, list);
         intro();
 
         while (true) {
@@ -89,6 +110,7 @@ public class Ekud {
                     list.get(index).setDone();
                     System.out.println("Yippee marking this task as done!");
                     System.out.println(list.get(index).display());
+                    saveToFile(filePath, list);
                 }
                 buffer();
             } else if (Objects.equals(command, "unmark")) {
@@ -99,12 +121,14 @@ public class Ekud {
                     list.get(index).setUndone();
                     System.out.println("Awww marking this task undone :(");
                     System.out.println(list.get(index).display());
+                    saveToFile(filePath, list);
                 }
                 buffer();
             } else if (Objects.equals(command, "todo")) {
                 System.out.println("Gotcha, Todo task added!");
                 list.add(new Todo(input, 0));
                 leftCheck(list);
+                saveToFile(filePath, list);
                 buffer();
             } else if (Objects.equals(command, "deadline")) {
                 String[] temp2 = input.split(" /by ", 2);
@@ -116,6 +140,7 @@ public class Ekud {
                     System.out.println("Gotcha, Deadline task added!");
                     list.add(new Deadline(task, dueDate, 0));
                     leftCheck(list);
+                    saveToFile(filePath, list);
                 }
                 buffer();
             } else if (Objects.equals(command, "event")) {
@@ -133,6 +158,7 @@ public class Ekud {
                         System.out.println("Gotcha, Event added!");
                         list.add(new Event(task, startTime, endTime, 0));
                         leftCheck(list);
+                        saveToFile(filePath, list);
                     }
                 }
                 buffer();
@@ -145,6 +171,7 @@ public class Ekud {
                     System.out.println(list.get(task).display());
                     list.remove(task);
                     leftCheck(list);
+                    saveToFile(filePath, list);
                 }
                 buffer();
             } else {
