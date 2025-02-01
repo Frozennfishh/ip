@@ -1,4 +1,7 @@
-package ekud;
+package ekud.ui;
+
+import ekud.memory.Storage;
+import ekud.memory.TaskList;
 
 import java.util.Scanner;
 

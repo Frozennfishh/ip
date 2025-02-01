@@ -1,4 +1,4 @@
-package ekud;
+package ekud.tasks;
 
 public class Todo extends Task {
     public Todo(String name, int done) {
@@ -7,6 +7,6 @@ public class Todo extends Task {
     }
 
     public String display() {
-        return "[T][" + (done == 1 ? "X" : " ") + "] " + name;
+        return "[T][" + (this.getDone() == 1 ? "X" : " ") + "] " + this.getName();
     }
 }

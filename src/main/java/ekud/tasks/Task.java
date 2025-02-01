@@ -1,8 +1,8 @@
-package ekud;
+package ekud.tasks;
 
 public class Task {
-    int done;
-    String name;
+    private int done;
+    private String name;
 
     public Task(String name, int done) {
         this.name = name;
@@ -15,6 +15,13 @@ public class Task {
 
     public void setUndone() {
         this.done = 0;
+    }
+    public int getDone() {
+        return this.done;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public String display() {

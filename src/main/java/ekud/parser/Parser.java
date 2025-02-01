@@ -1,7 +1,8 @@
-package ekud;
+package ekud.parser;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import ekud.memory.TaskList;
 
 public class Parser {
 

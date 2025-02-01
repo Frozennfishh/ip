@@ -1,4 +1,4 @@
-package ekud;
+package ekud.parser;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -1,4 +1,6 @@
-package ekud;
+package ekud.memory;
+
+import ekud.tasks.Task;
 
 public class IndexTaskPair {
     private int index;
