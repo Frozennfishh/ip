@@ -1,3 +1,8 @@
+package ekud.tasks;
+
+import ekud.parser.DateTimeParser;
+import ekud.tasks.Task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -33,7 +38,7 @@ public class Event extends Task {
         DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
         String s = start != null ? start.format(outputFormat) : this.start_string;
         String e = end != null ? end.format(outputFormat) : this.end_string;
-        return "[E][" + (done == 1 ? "X" : " ") + "] " + name +
+        return "[E][" + (this.getDone() == 1 ? "X" : " ") + "] " + this.getName() +
                 " (from: " + s + " to: " + e + ")";
     }
 

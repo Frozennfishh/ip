@@ -1,3 +1,11 @@
+package ekud.memory;
+
+import ekud.memory.IndexTaskPair;
+import ekud.memory.Storage;
+import ekud.tasks.Deadline;
+import ekud.tasks.Event;
+import ekud.tasks.Task;
+
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,7 +19,7 @@ public class TaskList {
     public void leftCheck() {
         int left = 0;
         for (Task task : list) {
-            if (task.done == 0) {
+            if (task.getDone() == 0) {
                 left += 1;
             }
         }
@@ -58,7 +66,7 @@ public class TaskList {
             if (task instanceof Deadline) {
                 if (((Deadline) task).getDue() == null) continue;
                 if (((Deadline) task).getDue().toLocalDate().equals(dueDate)) {
-                    if (task.done == 0) {
+                    if (task.getDone() == 0) {
                         undone.add(new IndexTaskPair(list.indexOf(task), task));
                     } else {
                         done.add(new IndexTaskPair(list.indexOf(task), task));
@@ -67,7 +75,7 @@ public class TaskList {
             } else if (task instanceof Event) {
                 if (((Event) task).getEnd() == null) continue;
                 if (((Event) task).getEnd().toLocalDate().equals(dueDate)) {
-                    if (task.done == 0) {
+                    if (task.getDone() == 0) {
                         undone.add(new IndexTaskPair(list.indexOf(task), task));
                     } else {
                         done.add(new IndexTaskPair(list.indexOf(task), task));

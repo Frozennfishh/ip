@@ -1,3 +1,7 @@
+package ekud.tasks;
+
+import ekud.parser.DateTimeParser;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -20,10 +24,10 @@ public class Deadline extends Task {
 
     public String display() {
         if (due == null) {
-            return "[D][" + (done == 1 ? "X" : " ") + "] " + name + " (by: " + due_string + ")";
+            return "[D][" + (this.getDone() == 1 ? "X" : " ") + "] " + this.getName() + " (by: " + due_string + ")";
         } else {
             DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-            return "[D][" + (done == 1 ? "X" : " ") + "] " + name + " (by: " + due.format(outputFormat) + ")";
+            return "[D][" + (this.getDone() == 1 ? "X" : " ") + "] " + this.getName() + " (by: " + due.format(outputFormat) + ")";
         }
     }
 
