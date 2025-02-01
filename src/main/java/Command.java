@@ -38,7 +38,7 @@ public class Command {
                     ui.taskNotGiven();
                     break;
                 }
-                if (isNotInteger(input, 10) || Integer.parseInt(input) > tasks.size()) {
+                if (Parser.indexChecker(input, tasks)) {
                     ui.taskDoesNotExist();
                 } else {
                     ui.markDone(tasks, Integer.parseInt(input) - 1);
@@ -52,7 +52,7 @@ public class Command {
                     ui.taskNotGiven();
                     break;
                 }
-                if (isNotInteger(input, 10) || Integer.parseInt(input) > tasks.size()) {
+                if (Parser.indexChecker(input, tasks)) {
                     ui.taskDoesNotExist();
                 } else {
                     ui.markUndone(tasks, Integer.parseInt(input) - 1);
@@ -111,7 +111,7 @@ public class Command {
                     ui.taskNotGiven();
                     break;
                 }
-                if (isNotInteger(input, 10) || Integer.parseInt(input) > tasks.size()) {
+                if (Parser.indexChecker(input, tasks)) {
                     ui.taskDoesNotExist();
                 } else {
                     ui.delete(tasks, Integer.parseInt(input) - 1, storage);
@@ -122,18 +122,6 @@ public class Command {
             case null, default: ui.unknown();
         }
         ui.buffer();
-    }
-
-    public static boolean isNotInteger(String s, int radix) {
-        if(s.isEmpty()) return true;
-        for(int i = 0; i < s.length(); i++) {
-            if(i == 0 && s.charAt(i) == '-') {
-                if(s.length() == 1) return true;
-                else continue;
-            }
-            if(Character.digit(s.charAt(i),radix) < 0) return true;
-        }
-        return false;
     }
 
     public boolean isExit() {
