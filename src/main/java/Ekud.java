@@ -1,11 +1,30 @@
-import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Objects;
+import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Ekud {
+    private static void loadFileContent(String filePath) throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            System.out.println(s.nextLine());
+        }
+    }
+
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> list = new ArrayList<>();
 
-        intro();
+        try {
+            loadFileContent("data/list.txt");
+        } catch (FileNotFoundException e) {
+            System.out.println("List not found!");
+        }
+
+        //intro();
 
         while (true) {
             String[] temp = scanner.nextLine().split(" ", 2);
@@ -98,6 +117,7 @@ public class Ekud {
         }
         goodbye();
     }
+
 
     static class Task {
         int done = 0;
