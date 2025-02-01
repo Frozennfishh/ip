@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
@@ -62,7 +64,7 @@ public class Ekud {
                     writer.write("T|" + task.name + "|" + task.done + "\n");
                 } else if (task instanceof Deadline) {
                     Deadline d = (Deadline) task;
-                    writer.write("D|" + d.name + "|" + d.due + "|" + d.done + "\n");
+                    writer.write("D|" + d.name + "|" + d.due_string + "|" + d.done + "\n");
                 } else if (task instanceof Event) {
                     Event e = (Event) task;
                     writer.write("E|" + e.name + "|" + e.start + "|" + e.end + "|" + e.done + "\n");
@@ -139,8 +141,8 @@ public class Ekud {
                     String dueDate = temp2[1];
                     System.out.println("Gotcha, Deadline task added!");
                     list.add(new Deadline(task, dueDate, 0));
+                    saveToFile("data/list.txt", list); // Save updated list
                     leftCheck(list);
-                    saveToFile(filePath, list);
                 }
                 buffer();
             } else if (Objects.equals(command, "event")) {
@@ -216,17 +218,24 @@ public class Ekud {
     }
 
     static class Deadline extends Task {
-        String due;
+        private LocalDateTime due;
+        private String due_string;
 
         public Deadline(String task, String dueDate, int done) {
             super(task, done);
-            this.due = dueDate;
+            this.due = parseDateTime(dueDate);
+            this.due_string = dueDate;
             System.out.println(display());
         }
 
+        private LocalDateTime parseDateTime(String input) {
+            DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            return LocalDateTime.parse(input, inputFormat);
+        }
+
         public String display() {
-            return "[D][" + (done == 1 ? "X" : " ") + "] " + name +
-                    " (by: " + due + ")";
+            DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+            return "[D][" + (done == 1 ? "X" : " ") + "] " + name + " (by: " + due.format(outputFormat) + ")";
         }
     }
 
