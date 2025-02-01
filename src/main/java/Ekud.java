@@ -7,13 +7,12 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Ekud {
-    private static void loadFileContent(String filePath, ArrayList list) throws FileNotFoundException {
+    private static void loadFileContent(String filePath, ArrayList<Task> list) throws FileNotFoundException {
         File file = new File(filePath);
 
         try {
@@ -104,6 +103,11 @@ public class Ekud {
                     }
                 }
                 buffer();
+            } else if (Objects.equals(command, "clear")) {
+                System.out.println("Okies, clearing list!");
+                list.clear();
+                saveToFile(filePath,list);
+                buffer();
             } else if (input == null) {
                 System.out.println("No task given, try again!");
                 buffer();
@@ -188,7 +192,7 @@ public class Ekud {
 
 
     static class Task {
-        int done = 0;
+        int done;
         String name;
 
         public Task(String name, int done) {
@@ -221,8 +225,8 @@ public class Ekud {
     }
 
     static class Deadline extends Task {
-        private LocalDateTime due;
-        private String due_string;
+        private final LocalDateTime due;
+        private final String due_string;
 
         public Deadline(String task, String dueDate, int done) {
             super(task, done);
@@ -250,19 +254,39 @@ public class Ekud {
     }
 
     static class Event extends Task {
-        String start;
-        String end;
+        private final String start_string;
+        private final String end_string;
+
+        private final LocalDateTime start;
+        private final LocalDateTime end;
 
         public Event(String name, String start, String end, int done) {
             super(name, done);
-            this.start = start;
-            this.end = end;
+            this.start_string = start;
+            this.end_string = end;
+            if (DateTimeParser.parseDateTime(start) != null) {
+                this.start = DateTimeParser.parseDateTime(start);
+            } else if (DateTimeParser.parseDate(start) != null) {
+                this.start = DateTimeParser.parseDate(start);
+            } else {
+                this.start = null;
+            }
+            if (DateTimeParser.parseDateTime(end) != null) {
+                this.end = DateTimeParser.parseDateTime(end);
+            } else if (DateTimeParser.parseDate(end) != null) {
+                this.end = DateTimeParser.parseDate(end);
+            } else {
+                this.end = null;
+            }
             System.out.println(display());
         }
 
         public String display() {
+            DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+            String s = start != null ? start.format(outputFormat) : this.start_string;
+            String e = end != null ? end.format(outputFormat) : this.end_string;
             return "[E][" + (done == 1 ? "X" : " ") + "] " + name +
-                    " (from: " + start + " to: " + end + ")";
+                    " (from: " + s + " to: " + e + ")";
         }
     }
 
