@@ -8,6 +8,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Ekud {
+    private Storage storage;
     private static void loadFileContent(String filePath, ArrayList<Task> list) throws FileNotFoundException {
         File file = new File(filePath);
 
