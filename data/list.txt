@@ -1,3 +1,0 @@
-T|dinner|0
-D|lunch|tomorrow|1
-E|breakfast|now|later|0
