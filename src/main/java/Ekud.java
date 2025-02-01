@@ -3,10 +3,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -64,12 +60,10 @@ public class Ekud {
             for (Task task : list) {
                 if (task instanceof Todo) {
                     writer.write("T|" + task.name + "|" + task.done + "\n");
-                } else if (task instanceof Deadline) {
-                    Deadline d = (Deadline) task;
-                    writer.write("D|" + d.name + "|" + d.due_string + "|" + d.done + "\n");
-                } else if (task instanceof Event) {
-                    Event e = (Event) task;
-                    writer.write("E|" + e.name + "|" + e.start + "|" + e.end + "|" + e.done + "\n");
+                } else if (task instanceof Deadline d) {
+                    writer.write("D|" + d.name + "|" + d.getDue_string() + "|" + d.done + "\n");
+                } else if (task instanceof Event e) {
+                    writer.write("E|" + e.name + "|" + e.getStart_string() + "|" + e.getEnd_string() + "|" + e.done + "\n");
                 }
             }
         } catch (IOException e) {
@@ -183,160 +177,56 @@ public class Ekud {
                     saveToFile(filePath, list);
                 }
                 buffer();
+            } else if (Objects.equals(command, "due")) {
+                LocalDate dueDate;
+                ArrayList<IndexTaskPair> undone = new ArrayList<>();
+                ArrayList<IndexTaskPair> done = new ArrayList<>();
+                if (DateTimeParser.parseDateTime(input) != null) {
+                    dueDate = DateTimeParser.parseDateTime(input).toLocalDate();
+                } else if (DateTimeParser.parseDate(input) != null) {
+                    dueDate = DateTimeParser.parseDate(input).toLocalDate();
+                } else {
+                    System.out.println("Due date not valid, try again!");
+                    buffer();
+                    continue;
+                }
+
+                for (Task task : list) {
+                    if (task instanceof Deadline) {
+                        if (((Deadline) task).getDue().toLocalDate().equals(dueDate)) {
+                            if (task.done == 0) {
+                                undone.add(new IndexTaskPair(list.indexOf(task), task));
+                            } else {
+                                done.add(new IndexTaskPair(list.indexOf(task), task));
+                            }
+                        }
+                    } else if (task instanceof Event) {
+                        if (((Event) task).getEnd().toLocalDate().equals(dueDate)) {
+                            if (task.done == 0) {
+                                undone.add(new IndexTaskPair(list.indexOf(task), task));
+                            } else {
+                                done.add(new IndexTaskPair(list.indexOf(task), task));
+                            }
+                        }
+                    }
+                }
+
+                System.out.println("Here are the tasks that are due on " + dueDate + ":");
+                System.out.println("Undone:");
+                for (IndexTaskPair pair : undone) {
+                    pair.IndexTaskPairDisplay();
+                }
+                System.out.println("\n" + "Done:");
+                for (IndexTaskPair pair : done) {
+                    pair.IndexTaskPairDisplay();
+                }
+                buffer();
             } else {
                 System.out.println("I don't understand ;-; Try again!");
             }
         }
         goodbye();
     }
-
-
-    static class Task {
-        int done;
-        String name;
-
-        public Task(String name, int done) {
-            this.name = name;
-            this.done = done;
-        }
-
-        public void setDone() {
-            this.done = 1;
-        }
-
-        public void setUndone() {
-            this.done = 0;
-        }
-
-        public String display() {
-            return "[" + (done == 1 ? "X" : " ") + "] " + name;
-        }
-    }
-
-    static class Todo extends Task {
-        public Todo(String name, int done) {
-            super(name, done);
-            System.out.println(display());
-        }
-
-        public String display() {
-            return "[T][" + (done == 1 ? "X" : " ") + "] " + name;
-        }
-    }
-
-    static class Deadline extends Task {
-        private final LocalDateTime due;
-        private final String due_string;
-
-        public Deadline(String task, String dueDate, int done) {
-            super(task, done);
-            if (DateTimeParser.parseDateTime(dueDate) != null) {
-                this.due = DateTimeParser.parseDateTime(dueDate);
-            } else if (DateTimeParser.parseDate(dueDate) != null) {
-                this.due = DateTimeParser.parseDate(dueDate);
-            } else {
-                this.due = null;
-            }
-            this.due_string = dueDate;
-            System.out.println(display());
-        }
-
-
-
-        public String display() {
-            if (due == null) {
-                return "[D][" + (done == 1 ? "X" : " ") + "] " + name + " (by: " + due_string + ")";
-            } else {
-                DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-                return "[D][" + (done == 1 ? "X" : " ") + "] " + name + " (by: " + due.format(outputFormat) + ")";
-            }
-        }
-    }
-
-    static class Event extends Task {
-        private final String start_string;
-        private final String end_string;
-
-        private final LocalDateTime start;
-        private final LocalDateTime end;
-
-        public Event(String name, String start, String end, int done) {
-            super(name, done);
-            this.start_string = start;
-            this.end_string = end;
-            if (DateTimeParser.parseDateTime(start) != null) {
-                this.start = DateTimeParser.parseDateTime(start);
-            } else if (DateTimeParser.parseDate(start) != null) {
-                this.start = DateTimeParser.parseDate(start);
-            } else {
-                this.start = null;
-            }
-            if (DateTimeParser.parseDateTime(end) != null) {
-                this.end = DateTimeParser.parseDateTime(end);
-            } else if (DateTimeParser.parseDate(end) != null) {
-                this.end = DateTimeParser.parseDate(end);
-            } else {
-                this.end = null;
-            }
-            System.out.println(display());
-        }
-
-        public String display() {
-            DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-            String s = start != null ? start.format(outputFormat) : this.start_string;
-            String e = end != null ? end.format(outputFormat) : this.end_string;
-            return "[E][" + (done == 1 ? "X" : " ") + "] " + name +
-                    " (from: " + s + " to: " + e + ")";
-        }
-    }
-
-    static class DateTimeParser {
-        private static final String[] DATE_TIME_PATTERNS = {
-                "d/M/yyyy HHmm",
-                "dd/MM/yyyy HH:mm",
-                "yyyy-MM-dd HH:mm:ss",
-                "yyyy/MM/dd HH:mm",
-                "dd MMM yyyy HH:mm",
-                "dd MMMM yyyy HH:mm",
-                "EEE, dd MMM yyyy HH:mm",
-                "EEEE, dd MMMM yyyy HH:mm"
-        };
-
-        private static final String[] DATE_PATTERNS = {
-                "d/M/yyyy",
-                "dd/MM/yyyy",
-                "yyyy-MM-dd",
-                "yyyy/MM/dd",
-                "dd MMM yyyy",
-                "dd MMMM yyyy",
-                "EEE, dd MMM yyyy",
-                "EEEE, dd MMMM yyyy"
-        };
-
-        public static LocalDateTime parseDateTime(String input) {
-            for (String pattern : DATE_TIME_PATTERNS) {
-                try {
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-                    return LocalDateTime.parse(input, formatter);
-                } catch (DateTimeParseException ignored) {
-                }
-            }
-            return null;
-        }
-
-        public static LocalDateTime parseDate(String input) {
-            for (String pattern : DATE_PATTERNS) {
-                try {
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-                    return LocalDate.parse(input, formatter).atTime(LocalTime.MIDNIGHT);
-                } catch (DateTimeParseException ignored) {
-                }
-            }
-            return null;
-        }
-    }
-
-
 
     private static void leftCheck(ArrayList<Task> list) {
         int left = 0;
@@ -375,10 +265,9 @@ public class Ekud {
 
     public static void goodbye() {
         System.out.println("Bye. Hope to see you again soon!\n");
-        System.out.println("____________________________\n");
+        buffer();
         System.exit(0);
     }
-
 
     public static boolean isNotInteger(String s, int radix) {
         if(s.isEmpty()) return true;
