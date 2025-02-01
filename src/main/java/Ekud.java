@@ -2,8 +2,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
@@ -223,19 +226,26 @@ public class Ekud {
 
         public Deadline(String task, String dueDate, int done) {
             super(task, done);
-            this.due = parseDateTime(dueDate);
+            if (DateTimeParser.parseDateTime(dueDate) != null) {
+                this.due = DateTimeParser.parseDateTime(dueDate);
+            } else if (DateTimeParser.parseDate(dueDate) != null) {
+                this.due = DateTimeParser.parseDate(dueDate);
+            } else {
+                this.due = null;
+            }
             this.due_string = dueDate;
             System.out.println(display());
         }
 
-        private LocalDateTime parseDateTime(String input) {
-            DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-            return LocalDateTime.parse(input, inputFormat);
-        }
+
 
         public String display() {
-            DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-            return "[D][" + (done == 1 ? "X" : " ") + "] " + name + " (by: " + due.format(outputFormat) + ")";
+            if (due == null) {
+                return "[D][" + (done == 1 ? "X" : " ") + "] " + name + " (by: " + due_string + ")";
+            } else {
+                DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+                return "[D][" + (done == 1 ? "X" : " ") + "] " + name + " (by: " + due.format(outputFormat) + ")";
+            }
         }
     }
 
@@ -255,6 +265,54 @@ public class Ekud {
                     " (from: " + start + " to: " + end + ")";
         }
     }
+
+    static class DateTimeParser {
+        private static final String[] DATE_TIME_PATTERNS = {
+                "d/M/yyyy HHmm",
+                "dd/MM/yyyy HH:mm",
+                "yyyy-MM-dd HH:mm:ss",
+                "yyyy/MM/dd HH:mm",
+                "dd MMM yyyy HH:mm",
+                "dd MMMM yyyy HH:mm",
+                "EEE, dd MMM yyyy HH:mm",
+                "EEEE, dd MMMM yyyy HH:mm"
+        };
+
+        private static final String[] DATE_PATTERNS = {
+                "d/M/yyyy",
+                "dd/MM/yyyy",
+                "yyyy-MM-dd",
+                "yyyy/MM/dd",
+                "dd MMM yyyy",
+                "dd MMMM yyyy",
+                "EEE, dd MMM yyyy",
+                "EEEE, dd MMMM yyyy"
+        };
+
+        public static LocalDateTime parseDateTime(String input) {
+            for (String pattern : DATE_TIME_PATTERNS) {
+                try {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+                    return LocalDateTime.parse(input, formatter);
+                } catch (DateTimeParseException ignored) {
+                }
+            }
+            return null;
+        }
+
+        public static LocalDateTime parseDate(String input) {
+            for (String pattern : DATE_PATTERNS) {
+                try {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+                    return LocalDate.parse(input, formatter).atTime(LocalTime.MIDNIGHT);
+                } catch (DateTimeParseException ignored) {
+                }
+            }
+            return null;
+        }
+    }
+
+
 
     private static void leftCheck(ArrayList<Task> list) {
         int left = 0;
