@@ -1,12 +1,13 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Ekud {
-    private static void loadFileContent(String filePath) {
+    private static void loadFileContent(String filePath, ArrayList list) throws FileNotFoundException {
         File file = new File(filePath);
 
         try {
@@ -15,24 +16,51 @@ public class Ekud {
             }
 
             if (file.createNewFile()) {
-                System.out.println("File created: " + file.getAbsolutePath());
+                System.out.println("File list created at: " + file.getAbsolutePath());
             } else {
-                System.out.println("File already exists.");
+                System.out.println("Saved list exists!");
             }
         } catch (IOException e) {
             System.out.println("An error occurred while creating the file.");
             e.printStackTrace();
         }
+
+        System.out.println("Initializing list!");
+
+        Scanner s = new Scanner(file);
+        int i = 0;
+        while (s.hasNext()) {
+            String[] line = s.nextLine().split("\\|");
+            System.out.print(i + 1 + ". ");
+            switch (line[0]) {
+                case "T": {
+                        list.add(new Todo(line[1], Integer.parseInt(line[2])));
+                        break;
+                }
+                case "D": {
+                    list.add(new Deadline(line[1], line[2], Integer.parseInt(line[3])));
+                    break;
+                }
+                case "E": {
+                    list.add(new Event(line[1], line[2], line[3], Integer.parseInt(line[4])));
+                    break;
+                }
+                case null, default: break;
+            }
+            i++;
+        }
+        if (list.isEmpty()) {
+            System.out.println("List is empty!");
+        }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
 
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> list = new ArrayList<>();
 
-        loadFileContent("data/list.txt");
-
-        //intro();
+        loadFileContent("data/list.txt", list);
+        intro();
 
         while (true) {
             String[] temp = scanner.nextLine().split(" ", 2);
@@ -75,7 +103,7 @@ public class Ekud {
                 buffer();
             } else if (Objects.equals(command, "todo")) {
                 System.out.println("Gotcha, Todo task added!");
-                list.add(new Todo(input));
+                list.add(new Todo(input, 0));
                 leftCheck(list);
                 buffer();
             } else if (Objects.equals(command, "deadline")) {
@@ -86,7 +114,7 @@ public class Ekud {
                     String task = temp2[0];
                     String dueDate = temp2[1];
                     System.out.println("Gotcha, Deadline task added!");
-                    list.add(new Deadline(task, dueDate));
+                    list.add(new Deadline(task, dueDate, 0));
                     leftCheck(list);
                 }
                 buffer();
@@ -103,7 +131,7 @@ public class Ekud {
                         String startTime = temp3[0];
                         String endTime = temp3[1];
                         System.out.println("Gotcha, Event added!");
-                        list.add(new Event(task, startTime, endTime));
+                        list.add(new Event(task, startTime, endTime, 0));
                         leftCheck(list);
                     }
                 }
@@ -131,8 +159,9 @@ public class Ekud {
         int done = 0;
         String name;
 
-        public Task(String name) {
+        public Task(String name, int done) {
             this.name = name;
+            this.done = done;
         }
 
         public void setDone() {
@@ -149,8 +178,8 @@ public class Ekud {
     }
 
     static class Todo extends Task {
-        public Todo(String name) {
-            super(name);
+        public Todo(String name, int done) {
+            super(name, done);
             System.out.println(display());
         }
 
@@ -162,8 +191,8 @@ public class Ekud {
     static class Deadline extends Task {
         String due;
 
-        public Deadline(String task, String dueDate) {
-            super(task);
+        public Deadline(String task, String dueDate, int done) {
+            super(task, done);
             this.due = dueDate;
             System.out.println(display());
         }
@@ -178,8 +207,8 @@ public class Ekud {
         String start;
         String end;
 
-        public Event(String name, String start, String end) {
-            super(name);
+        public Event(String name, String start, String end, int done) {
+            super(name, done);
             this.start = start;
             this.end = end;
             System.out.println(display());
