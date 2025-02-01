@@ -1,15 +1,27 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Ekud {
-    private static void loadFileContent(String filePath) throws FileNotFoundException {
-        File f = new File(filePath);
-        Scanner s = new Scanner(f);
-        while (s.hasNext()) {
-            System.out.println(s.nextLine());
+    private static void loadFileContent(String filePath) {
+        File file = new File(filePath);
+
+        try {
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+
+            if (file.createNewFile()) {
+                System.out.println("File created: " + file.getAbsolutePath());
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while creating the file.");
+            e.printStackTrace();
         }
     }
 
@@ -18,11 +30,7 @@ public class Ekud {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> list = new ArrayList<>();
 
-        try {
-            loadFileContent("data/list.txt");
-        } catch (FileNotFoundException e) {
-            System.out.println("List not found!");
-        }
+        loadFileContent("data/list.txt");
 
         //intro();
 
