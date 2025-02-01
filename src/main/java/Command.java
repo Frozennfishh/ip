@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 public class Command {
     private boolean isExit = false;
     private String command;
@@ -119,7 +121,18 @@ public class Command {
                 break;
             }
 
+            case "due" : {
+                LocalDate dueDate = Parser.getDate(input);
+                if (input == null || dueDate == null) {
+                    ui.taskNotGiven();
+                    break;
+                }
+                tasks.dueCheck(dueDate);
+                break;
+            }
+
             case null, default: ui.unknown();
+
         }
         ui.buffer();
     }
