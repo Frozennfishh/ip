@@ -140,7 +140,7 @@ public class Command {
                 break;
             }
 
-            case null, default: ui.unknown();
+            default: ui.unknown();
 
         }
         ui.buffer();

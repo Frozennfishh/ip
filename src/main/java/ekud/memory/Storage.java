@@ -53,7 +53,8 @@ public class Storage {
                     list.add(new Event(line[1], line[2], line[3], Integer.parseInt(line[4])));
                     break;
                 }
-                case null, default: break;
+                default:
+                    break;
             }
             i++;
         }

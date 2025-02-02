@@ -31,9 +31,9 @@ public class Ui {
         System.out.println("____________________________\n");
         System.out.println("Hello! I'm\n" + logo);
         System.out.println("""
-                ╱|、
+                ╱|
                 (^ˎ ^7 \s
-                |、˜〵         \s
+                |、 〵         \s
                 じしˍ,)ノ
                 """);
         System.out.println("What can I do for you?\n");
