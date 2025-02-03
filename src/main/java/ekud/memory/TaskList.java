@@ -1,14 +1,12 @@
 package ekud.memory;
 
-import ekud.memory.IndexTaskPair;
-import ekud.memory.Storage;
-import ekud.tasks.Deadline;
-import ekud.tasks.Event;
-import ekud.tasks.Task;
-
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import ekud.tasks.Deadline;
+import ekud.tasks.Event;
+import ekud.tasks.Task;
 
 public class TaskList {
     private ArrayList<Task> list;
@@ -64,7 +62,9 @@ public class TaskList {
 
         for (Task task : list) {
             if (task instanceof Deadline) {
-                if (((Deadline) task).getDue() == null) continue;
+                if (((Deadline) task).getDue() == null) {
+                    continue;
+                }
                 if (((Deadline) task).getDue().toLocalDate().equals(dueDate)) {
                     if (task.getDone() == 0) {
                         undone.add(new IndexTaskPair(list.indexOf(task), task));
@@ -73,7 +73,9 @@ public class TaskList {
                     }
                 }
             } else if (task instanceof Event) {
-                if (((Event) task).getEnd() == null) continue;
+                if (((Event) task).getEnd() == null) {
+                    continue;
+                }
                 if (((Event) task).getEnd().toLocalDate().equals(dueDate)) {
                     if (task.getDone() == 0) {
                         undone.add(new IndexTaskPair(list.indexOf(task), task));
@@ -87,11 +89,11 @@ public class TaskList {
         System.out.println("Here are the tasks that are due on " + dueDate + ":");
         System.out.println("Undone:");
         for (IndexTaskPair pair : undone) {
-            pair.IndexTaskPairDisplay();
+            pair.indexTaskPairDisplay();
         }
         System.out.println("\n" + "Done:");
         for (IndexTaskPair pair : done) {
-            pair.IndexTaskPairDisplay();
+            pair.indexTaskPairDisplay();
         }
     }
 }

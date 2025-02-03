@@ -1,10 +1,5 @@
 package ekud.memory;
 
-import ekud.tasks.Deadline;
-import ekud.tasks.Event;
-import ekud.tasks.Task;
-import ekud.tasks.Todo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -12,8 +7,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import ekud.tasks.Deadline;
+import ekud.tasks.Event;
+import ekud.tasks.Task;
+import ekud.tasks.Todo;
+
 public class Storage {
-    File file;
+    private File file;
     public Storage(String filePath) {
         this.file = new File(filePath);
         try {
@@ -41,20 +41,20 @@ public class Storage {
             String[] line = s.nextLine().split("\\|");
             System.out.print(i + 1 + ". ");
             switch (line[0]) {
-                case "T": {
-                    list.add(new Todo(line[1], Integer.parseInt(line[2])));
-                    break;
-                }
-                case "D": {
-                    list.add(new Deadline(line[1], line[2], Integer.parseInt(line[3])));
-                    break;
-                }
-                case "E": {
-                    list.add(new Event(line[1], line[2], line[3], Integer.parseInt(line[4])));
-                    break;
-                }
-                default:
-                    break;
+            case "T": {
+                list.add(new Todo(line[1], Integer.parseInt(line[2])));
+                break;
+            }
+            case "D": {
+                list.add(new Deadline(line[1], line[2], Integer.parseInt(line[3])));
+                break;
+            }
+            case "E": {
+                list.add(new Event(line[1], line[2], line[3], Integer.parseInt(line[4])));
+                break;
+            }
+            default:
+                break;
             }
             i++;
         }
@@ -74,7 +74,8 @@ public class Storage {
                 } else if (task instanceof Deadline d) {
                     writer.write("D|" + d.getName() + "|" + d.getDue_string() + "|" + d.getDone() + "\n");
                 } else if (task instanceof Event e) {
-                    writer.write("E|" + e.getName() + "|" + e.getStart_string() + "|" + e.getEnd_string() + "|" + e.getDone() + "\n");
+                    writer.write("E|" + e.getName() + "|" + e.getStart_string() + "|"
+                            + e.getEnd_string() + "|" + e.getDone() + "\n");
                 }
             }
         } catch (IOException e) {

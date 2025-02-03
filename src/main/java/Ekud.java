@@ -9,7 +9,7 @@ public class Ekud {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
-    public Ekud (String filePath) throws FileNotFoundException {
+    public Ekud(String filePath) throws FileNotFoundException {
         storage = new Storage(filePath);
         taskList = new TaskList(storage);
         ui = new Ui();
