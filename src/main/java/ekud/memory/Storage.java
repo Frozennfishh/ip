@@ -12,8 +12,20 @@ import ekud.tasks.Event;
 import ekud.tasks.Task;
 import ekud.tasks.Todo;
 
+/**
+ * The {@code Storage} class handles loading and saving task data to a file.
+ * It ensures that the file exists and maintains task persistence.
+ */
 public class Storage {
     private File file;
+
+    /**
+     * Constructs a {@code Storage} object and initializes the file.
+     * - Creates parent directories if they do not exist.
+     * - Creates a new file if it does not already exist.
+     *
+     * @param filePath The path of the file where task data is stored.
+     */
     public Storage(String filePath) {
         this.file = new File(filePath);
         try {
@@ -32,6 +44,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the content of the task file and initializes a list of tasks.
+     *
+     * @return An {@code ArrayList<Task>} containing all loaded tasks.
+     *         Returns {@code null} if the file is empty.
+     * @throws FileNotFoundException If the file cannot be found.
+     */
     public ArrayList<Task> loadFileContent() throws FileNotFoundException {
         ArrayList<Task> list = new ArrayList<>();
         System.out.println("Initializing list!");
@@ -66,6 +85,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the current task list to the file, overwriting the existing content.
+     *
+     * @param list The {@code TaskList} containing tasks to be saved.
+     */
     public void saveToFile(TaskList list) {
         try (FileWriter writer = new FileWriter(file)) {
             for (Task task : list.getList()) {

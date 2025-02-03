@@ -6,6 +6,13 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The {@code DateTimeParser} class provides methods for parsing date and time strings
+ * into {@code LocalDateTime} or {@code LocalDate} objects.
+ * <p>
+ * It supports multiple date and date-time formats to accommodate various input formats.
+ * </p>
+ */
 public class DateTimeParser {
     private static final String[] DATE_TIME_PATTERNS = {
         "d/M/yyyy HHmm",
@@ -29,6 +36,17 @@ public class DateTimeParser {
         "EEEE, dd MMMM yyyy"
     };
 
+    /**
+     * Parses a date-time string into a {@code LocalDateTime} object.
+     * <p>
+     * The method iterates through an array of predefined date-time patterns.
+     * If a pattern matches, the corresponding {@code LocalDateTime} object is returned.
+     * If no patterns match, {@code null} is returned.
+     * </p>
+     *
+     * @param input The date-time string to be parsed.
+     * @return A {@code LocalDateTime} object if parsing succeeds, otherwise {@code null}.
+     */
     public static LocalDateTime parseDateTime(String input) {
         for (String pattern : DATE_TIME_PATTERNS) {
             try {
@@ -41,6 +59,18 @@ public class DateTimeParser {
         return null;
     }
 
+    /**
+     * Parses a date string into a {@code LocalDateTime} object.
+     * <p>
+     * The method iterates through an array of predefined date patterns.
+     * If a pattern matches, the corresponding {@code LocalDate} object is created and
+     * then converted into {@code LocalDateTime} by setting the time to midnight.
+     * If no patterns match, {@code null} is returned.
+     * </p>
+     *
+     * @param input The date string to be parsed.
+     * @return A {@code LocalDateTime} object with time set to midnight if parsing succeeds, otherwise {@code null}.
+     */
     public static LocalDateTime parseDate(String input) {
         for (String pattern : DATE_PATTERNS) {
             try {
