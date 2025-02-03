@@ -154,4 +154,27 @@ public class TaskList {
             pair.indexTaskPairDisplay();
         }
     }
+
+    /**
+     * Searches for tasks that contain a specific keyword in their name.
+     * <p>
+     * This method iterates through the task list and returns a list of tasks
+     * whose names contain the given input string.
+     * </p>
+     *
+     * @param input The keyword to search for within task names.
+     * @return An {@code ArrayList<Task>} containing tasks that match the search criteria.
+     *         Returns an empty list if no matching tasks are found.
+     */
+    public ArrayList<Task> findTask(String input) {
+        ArrayList<Task> output = new ArrayList<>();
+
+        for (Task task : this.getList()) {
+            if (task.getName().contains(input)) {
+                output.add(task);
+            }
+        }
+
+        return output;
+    }
 }

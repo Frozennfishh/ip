@@ -1,9 +1,11 @@
 package ekud.ui;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import ekud.memory.Storage;
 import ekud.memory.TaskList;
+import ekud.tasks.Task;
 
 /**
  * Handles user interaction for the Ekud task manager.
@@ -12,6 +14,7 @@ import ekud.memory.TaskList;
  * and providing feedback based on user commands.
  * </p>
  */
+
 public class Ui {
     private Scanner scanner;
 
@@ -145,5 +148,25 @@ public class Ui {
      */
     public void unknown() {
         System.out.println("I don't understand ;-; Try again!");
+    }
+
+    /**
+     * Prints a list of tasks that match a given search criteria.
+     * <p>
+     * If no matching tasks are found, an appropriate message is displayed.
+     * Otherwise, the method prints all matching tasks in a numbered format.
+     * </p>
+     *
+     * @param list An {@code ArrayList<Task>} containing the matching tasks.
+     */
+    public void findTaskPrint(ArrayList<Task> list) {
+        if (list.isEmpty()) {
+            System.out.println("No related task found in this list :( Try again!");
+        } else {
+            System.out.println("Here are the matching tasks in your list!");
+            for (int i = 0; i < list.size(); i++) {
+                System.out.println(i + 1 + ". " + list.get(i).display());
+            }
+        }
     }
 }
