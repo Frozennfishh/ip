@@ -140,8 +140,12 @@ public class Command {
                 break;
             }
 
-            default: ui.unknown();
+        case "find": {
+            ui.findTaskPrint(tasks.findTask(input));
+            break;
+        }
 
+            default: ui.unknown();
         }
         ui.buffer();
     }
