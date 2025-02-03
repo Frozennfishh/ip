@@ -79,7 +79,7 @@ public class Storage {
         }
         if (list.isEmpty()) {
             System.out.println("List is empty!");
-            return null;
+            return new ArrayList<>();
         } else {
             return list;
         }

@@ -55,9 +55,9 @@ public class Ui {
         System.out.println("____________________________\n");
         System.out.println("Hello! I'm\n" + logo);
         System.out.println("""
-                ╱|
-                (^ˎ ^7 \s
-                |  〵         \s
+                /|
+                (^.^7 \s
+                |  |\s
                 V__,)/
                 """);
         System.out.println("What can I do for you?\n");
@@ -77,7 +77,9 @@ public class Ui {
      * Displays a visual separator to improve readability in the console.
      */
     public void buffer() {
-        System.out.println("ฅ^•ﻌ•^ฅ");
+        System.out.println("   /\\_/\\\n"
+                + "= (^ v ^) =\n"
+                + "  /     \\     ");
         System.out.println("____________________________\n");
     }
 
