@@ -33,8 +33,8 @@ public class Ui {
         System.out.println("""
                 ╱|
                 (^ˎ ^7 \s
-                |、 〵         \s
-                じしˍ,)ノ
+                |  〵         \s
+                V__,)/
                 """);
         System.out.println("What can I do for you?\n");
         System.out.println("____________________________\n");
