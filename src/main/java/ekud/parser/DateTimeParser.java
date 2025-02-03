@@ -52,8 +52,9 @@ public class DateTimeParser {
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
                 return LocalDateTime.parse(input, formatter);
-            } catch (DateTimeParseException ignored) {
-                break;
+            } catch (DateTimeParseException e) {
+                @SuppressWarnings("unused")
+                Exception ignored = e;
             }
         }
         return null;
@@ -76,8 +77,9 @@ public class DateTimeParser {
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
                 return LocalDate.parse(input, formatter).atTime(LocalTime.MIDNIGHT);
-            } catch (DateTimeParseException ignored) {
-                break;
+            } catch (DateTimeParseException e) {
+                @SuppressWarnings("unused")
+                Exception ignored = e;
             }
         }
         return null;

@@ -51,41 +51,41 @@ public class DateTimeParserTest {
 
     @Test
     public void parseDateTest1() {
-        assertEquals(LocalDateTime.of(2019, 12, 2, 18, 00), DateTimeParser.parseDate("2/12/2019"));
+        assertEquals(LocalDateTime.of(2019, 12, 2, 00, 00), DateTimeParser.parseDate("2/12/2019"));
     }
 
     @Test
     public void parseDateTest2() {
-        assertEquals(LocalDateTime.of(2019, 12, 2, 18, 00), DateTimeParser.parseDate("02/12/2019"));
+        assertEquals(LocalDateTime.of(2019, 12, 2, 00, 00), DateTimeParser.parseDate("02/12/2019"));
     }
 
     @Test
     public void parseDateTest3() {
-        assertEquals(LocalDateTime.of(2019, 12, 2, 18, 00), DateTimeParser.parseDate("2019-12-02"));
+        assertEquals(LocalDateTime.of(2019, 12, 2, 00, 00), DateTimeParser.parseDate("2019-12-02"));
     }
 
     @Test
     public void parseDateTest4() {
-        assertEquals(LocalDateTime.of(2019, 12, 2, 18, 00), DateTimeParser.parseDate("2019/12/02"));
+        assertEquals(LocalDateTime.of(2019, 12, 2, 00, 00), DateTimeParser.parseDate("2019/12/02"));
     }
 
     @Test
     public void parseDateTest5() {
-        assertEquals(LocalDateTime.of(2019, 12, 2, 18, 00), DateTimeParser.parseDate("02 Dec 2019"));
+        assertEquals(LocalDateTime.of(2019, 12, 2, 00, 00), DateTimeParser.parseDate("02 Dec 2019"));
     }
 
     @Test
     public void parseDateTest6() {
-        assertEquals(LocalDateTime.of(2019, 12, 2, 18, 00), DateTimeParser.parseDate("02 December 2019"));
+        assertEquals(LocalDateTime.of(2019, 12, 2, 00, 00), DateTimeParser.parseDate("02 December 2019"));
     }
 
     @Test
     public void parseDateTest7() {
-        assertEquals(LocalDateTime.of(2019, 12, 2, 18, 00), DateTimeParser.parseDate("Mon, 02 Dec 2019"));
+        assertEquals(LocalDateTime.of(2019, 12, 2, 00, 00), DateTimeParser.parseDate("Mon, 02 Dec 2019"));
     }
 
     @Test
     public void parseDateTest8() {
-        assertEquals(LocalDateTime.of(2019, 12, 2, 18, 00), DateTimeParser.parseDate("Monday, 02 December 2019"));
+        assertEquals(LocalDateTime.of(2019, 12, 2, 00, 00), DateTimeParser.parseDate("Monday, 02 December 2019"));
     }
 }
