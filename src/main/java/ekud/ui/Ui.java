@@ -8,7 +8,7 @@ import ekud.memory.TaskList;
 import ekud.tasks.Task;
 
 /**
- * Handles user interaction for the Ekud task manager.
+ * Handles user interaction for the ekud.gui.Ekud task manager.
  * <p>
  * The {@code Ui} class is responsible for reading user input, displaying messages,
  * and providing feedback based on user commands.

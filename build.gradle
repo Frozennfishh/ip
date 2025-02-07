@@ -46,7 +46,7 @@ test {
 }
 
 application {
-    mainClass.set("Ekud")
+    mainClass.set("Launcher")
 }
 
 checkstyle {

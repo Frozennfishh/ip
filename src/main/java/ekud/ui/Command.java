@@ -10,7 +10,7 @@ import ekud.tasks.Event;
 import ekud.tasks.Todo;
 
 /**
- * Represents a user command in the Ekud task manager.
+ * Represents a user command in the ekud.gui.Ekud task manager.
  * <p>
  * The {@code Command} class processes and executes different types of user commands,
  * including adding, marking, deleting, and listing tasks.
