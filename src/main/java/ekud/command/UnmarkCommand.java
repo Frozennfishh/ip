@@ -5,7 +5,7 @@ import ekud.memory.TaskList;
 import ekud.parser.Parser;
 import ekud.ui.Ui;
 
-public class UnmarkCommand extends Command{
+public class UnmarkCommand extends Command {
     public UnmarkCommand(String input) {
         super(input);
     }

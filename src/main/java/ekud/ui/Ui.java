@@ -110,9 +110,9 @@ public class Ui {
         tasks.get(index).setDone();
         System.out.println("Yippee marking this task as done!");
         System.out.println(tasks.get(index).display());
-        return "Yippee marking this task as done!\n" +
-                tasks.get(index).display() + "\n" +
-                tasks.leftCheck();
+        return "Yippee marking this task as done!\n"
+                + tasks.get(index).display() + "\n"
+                + tasks.leftCheck();
     }
 
     /**
@@ -125,9 +125,9 @@ public class Ui {
         tasks.get(index).setUndone();
         System.out.println("Awww marking this task undone :(");
         System.out.println(tasks.get(index).display());
-        return "Awww marking this task undone :(\n" +
-                tasks.get(index).display() + "\n" +
-                tasks.leftCheck();
+        return "Awww marking this task undone :(\n"
+                + tasks.get(index).display() + "\n"
+                + tasks.leftCheck();
     }
 
     /**

@@ -7,8 +7,8 @@ import ekud.memory.TaskList;
 import ekud.parser.Parser;
 import ekud.ui.Ui;
 
-public class DueCommand extends Command{
-    LocalDate dueDate;
+public class DueCommand extends Command {
+    private LocalDate dueDate;
     public DueCommand(String input) {
         super(input);
         this.dueDate = input == null ? null : Parser.getDate(this.getInput());

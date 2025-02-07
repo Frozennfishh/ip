@@ -2,10 +2,9 @@ package ekud.gui;
 
 import java.io.FileNotFoundException;
 
-import ekud.exceptions.DukeException;
+import ekud.command.Command;
 import ekud.memory.Storage;
 import ekud.memory.TaskList;
-import ekud.command.Command;
 import ekud.parser.Parser;
 import ekud.ui.Ui;
 

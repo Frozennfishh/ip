@@ -4,7 +4,7 @@ import ekud.memory.Storage;
 import ekud.memory.TaskList;
 import ekud.ui.Ui;
 
-public class UnknownCommand extends Command{
+public class UnknownCommand extends Command {
     public UnknownCommand(String input) {
         super(input);
     }

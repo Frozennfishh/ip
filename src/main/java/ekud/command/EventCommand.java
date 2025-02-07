@@ -5,10 +5,10 @@ import ekud.memory.TaskList;
 import ekud.tasks.Event;
 import ekud.ui.Ui;
 
-public class EventCommand extends Command{
-    String task;
-    String startDate;
-    String endDate;
+public class EventCommand extends Command {
+    private String task;
+    private String startDate;
+    private String endDate;
     public EventCommand(String input) {
         super(input);
         if (this.getInput() == null) {
@@ -33,8 +33,8 @@ public class EventCommand extends Command{
             System.out.println("End date not given");
             return "End date not given";
         } else {
-            return ui.taskAdded("Event") + "\n" +
-                    tasks.add(new Event(task, startDate, endDate, 0), storage);
+            return ui.taskAdded("Event") + "\n"
+                    + tasks.add(new Event(task, startDate, endDate, 0), storage);
         }
     }
 }
