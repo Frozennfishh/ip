@@ -24,7 +24,7 @@ public class Parser {
      * @param t The {@code TaskList} where the index should exist.
      * @return {@code true} if the string is not an integer or exceeds the task list size, otherwise {@code false}.
      */
-    public static boolean indexChecker(String s, TaskList t) {
+    public static boolean isValidIndex(String s, TaskList t) {
         return isNotInteger(s, 10) || Integer.parseInt(s) > t.size();
     }
 

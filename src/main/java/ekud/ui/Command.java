@@ -89,7 +89,7 @@ public class Command {
                 ui.taskNotGiven();
                 break;
             }
-            if (Parser.indexChecker(input, tasks)) {
+            if (Parser.isValidIndex(input, tasks)) {
                 ui.taskDoesNotExist();
             } else {
                 ui.markDone(tasks, Integer.parseInt(input) - 1);
@@ -103,7 +103,7 @@ public class Command {
                 ui.taskNotGiven();
                 break;
             }
-            if (Parser.indexChecker(input, tasks)) {
+            if (Parser.isValidIndex(input, tasks)) {
                 ui.taskDoesNotExist();
             } else {
                 ui.markUndone(tasks, Integer.parseInt(input) - 1);
@@ -162,7 +162,7 @@ public class Command {
                 ui.taskNotGiven();
                 break;
             }
-            if (Parser.indexChecker(input, tasks)) {
+            if (Parser.isValidIndex(input, tasks)) {
                 ui.taskDoesNotExist();
             } else {
                 ui.delete(tasks, Integer.parseInt(input) - 1, storage);
