@@ -20,7 +20,6 @@ public class Todo extends Task {
         System.out.println(display());
     }
 
-    @Override
     /**
      * Returns a formatted string representation of the to-do task.
      * <p>
@@ -30,6 +29,7 @@ public class Todo extends Task {
      *
      * @return A formatted string representing the to-do task.
      */
+    @Override
     public String display() {
         return "[T][" + (this.getDone() == 1 ? "X" : " ") + "] " + this.getName();
     }

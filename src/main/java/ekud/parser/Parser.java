@@ -2,7 +2,21 @@ package ekud.parser;
 
 import java.time.LocalDate;
 import java.util.Objects;
+
+import ekud.command.ClearCommand;
+import ekud.command.Command;
+import ekud.command.DeadlineCommand;
+import ekud.command.DeleteCommand;
+import ekud.command.DueCommand;
+import ekud.command.EventCommand;
+import ekud.command.ExitCommand;
+import ekud.command.ListCommand;
+import ekud.command.MarkCommand;
+import ekud.command.TodoCommand;
+import ekud.command.UnknownCommand;
+import ekud.command.UnmarkCommand;
 import ekud.memory.TaskList;
+import ekud.ui.Ui;
 
 /**
  * The {@code Parser} class provides utility methods for parsing user input
@@ -14,7 +28,25 @@ public class Parser {
      * Constructs a {@code Parser} object.
      */
     public Parser() {
+    }
 
+    public static Command parse(String s) {
+        String[] temp = s.split(" ", 2);
+        String command = temp[0];
+        String input = temp.length > 1 ? temp[1] : null;
+        switch (command) {
+        case "bye": return new ExitCommand(input);
+        case "list": return new ListCommand(input);
+        case "clear": return new ClearCommand(input);
+        case "mark": return new MarkCommand(input);
+        case "unmark": return new UnmarkCommand(input);
+        case "todo": return new TodoCommand(input);
+        case "deadline": return new DeadlineCommand(input);
+        case "event": return new EventCommand(input);
+        case "delete": return new DeleteCommand(input);
+        case "due": return new DueCommand(input);
+        default: return new UnknownCommand(input);
+        }
     }
 
     /**
@@ -24,7 +56,7 @@ public class Parser {
      * @param t The {@code TaskList} where the index should exist.
      * @return {@code true} if the string is not an integer or exceeds the task list size, otherwise {@code false}.
      */
-    public static boolean indexChecker(String s, TaskList t) {
+    public static boolean isValidIndex(String s, TaskList t) {
         return isNotInteger(s, 10) || Integer.parseInt(s) > t.size();
     }
 
@@ -36,13 +68,20 @@ public class Parser {
      * @return {@code true} if the string is not a valid integer, otherwise {@code false}.
      */
     public static boolean isNotInteger(String s, int radix) {
-        if(s.isEmpty()) return true;
-        for(int i = 0; i < s.length(); i++) {
-            if(i == 0 && s.charAt(i) == '-') {
-                if(s.length() == 1) return true;
-                else continue;
+        if (s.isEmpty()) {
+            return true;
+        }
+        for (int i = 0; i < s.length(); i++) {
+            if (i == 0 && s.charAt(i) == '-') {
+                if (s.length() == 1) {
+                    return true;
+                } else {
+                    continue;
+                }
             }
-            if(Character.digit(s.charAt(i),radix) < 0) return true;
+            if (Character.digit(s.charAt(i), radix) < 0) {
+                return true;
+            }
         }
         return false;
     }

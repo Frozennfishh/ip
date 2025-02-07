@@ -1,10 +1,9 @@
 package ekud.tasks;
 
-import ekud.parser.DateTimeParser;
-import ekud.tasks.Task;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import ekud.parser.DateTimeParser;
 
 /**
  * Represents an event task with a start and end time.
@@ -14,8 +13,8 @@ import java.time.format.DateTimeFormatter;
  * </p>
  */
 public class Event extends Task {
-    private final String start_string;
-    private final String end_string;
+    private final String startString;
+    private final String endString;
 
     private final LocalDateTime start;
     private final LocalDateTime end;
@@ -35,8 +34,8 @@ public class Event extends Task {
      */
     public Event(String name, String start, String end, int done) {
         super(name, done);
-        this.start_string = start;
-        this.end_string = end;
+        this.startString = start;
+        this.endString = end;
         if (DateTimeParser.parseDateTime(start) != null) {
             this.start = DateTimeParser.parseDateTime(start);
         } else if (DateTimeParser.parseDate(start) != null) {
@@ -54,7 +53,6 @@ public class Event extends Task {
         System.out.println(display());
     }
 
-    @Override
     /**
      * Returns a formatted string representation of the event.
      * <p>
@@ -65,12 +63,13 @@ public class Event extends Task {
      *
      * @return A formatted string representing the event.
      */
+    @Override
     public String display() {
         DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-        String s = start != null ? start.format(outputFormat) : this.start_string;
-        String e = end != null ? end.format(outputFormat) : this.end_string;
-        return "[E][" + (this.getDone() == 1 ? "X" : " ") + "] " + this.getName() +
-                " (from: " + s + " to: " + e + ")";
+        String s = start != null ? start.format(outputFormat) : this.startString;
+        String e = end != null ? end.format(outputFormat) : this.endString;
+        return "[E][" + (this.getDone() == 1 ? "X" : " ") + "] " + this.getName()
+                + " (from: " + s + " to: " + e + ")";
     }
 
     /**
@@ -79,7 +78,7 @@ public class Event extends Task {
      * @return The raw start time string.
      */
     public String getStart_string() {
-        return this.start_string;
+        return this.startString;
     }
 
     /**
@@ -88,7 +87,7 @@ public class Event extends Task {
      * @return The raw end time string.
      */
     public String getEnd_string() {
-        return this.end_string;
+        return this.endString;
     }
 
     /**

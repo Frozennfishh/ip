@@ -7,11 +7,13 @@ plugins {
 
 repositories {
     mavenCentral()
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 }
 
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    implementation group: 'com.joestelmach', name: 'natty', version: '0.13'
 
     String javaFxVersion = '17.0.7'
 
@@ -44,7 +46,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.ekud.Main")
+    mainClass.set("Launcher")
+}
+
+checkstyle {
+    toolVersion = "10.2"
 }
 
 checkstyle {

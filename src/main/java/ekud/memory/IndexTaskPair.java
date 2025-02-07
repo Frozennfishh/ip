@@ -17,7 +17,7 @@ public class IndexTaskPair {
      * @param index The position of the task in a list (0-based index, incremented by 1).
      * @param task  The task associated with this index.
      */
-    public IndexTaskPair (int index, Task task) {
+    public IndexTaskPair(int index, Task task) {
         this.index = index + 1;
         this.task = task;
     }
@@ -26,7 +26,7 @@ public class IndexTaskPair {
      * Displays the task with its assigned index.
      * Prints the task in the format: {@code "<index>. <task display string>"}.
      */
-    public void IndexTaskPairDisplay() {
-        System.out.println(index + ". " + task.display());
+    public String indexTaskPairDisplay() {
+        return index + ". " + task.display();
     }
 }

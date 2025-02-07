@@ -1,9 +1,9 @@
 package ekud.tasks;
 
-import ekud.parser.DateTimeParser;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import ekud.parser.DateTimeParser;
 
 /**
  * Represents a task with a deadline.
@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
     private final LocalDateTime due;
-    private final String due_string;
+    private final String dueString;
 
     /**
      * Constructs a {@code Deadline} task with a specified name, deadline date, and completion status.
@@ -37,11 +37,10 @@ public class Deadline extends Task {
         } else {
             this.due = null;
         }
-        this.due_string = dueDate;
+        this.dueString = dueDate;
         System.out.println(display());
     }
 
-    @Override
     /**
      * Returns the string representation of the deadline task.
      * <p>
@@ -51,12 +50,14 @@ public class Deadline extends Task {
      *
      * @return A formatted string representing the deadline task.
      */
+    @Override
     public String display() {
         if (due == null) {
-            return "[D][" + (this.getDone() == 1 ? "X" : " ") + "] " + this.getName() + " (by: " + due_string + ")";
+            return "[D][" + (this.getDone() == 1 ? "X" : " ") + "] " + this.getName() + " (by: " + dueString + ")";
         } else {
             DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-            return "[D][" + (this.getDone() == 1 ? "X" : " ") + "] " + this.getName() + " (by: " + due.format(outputFormat) + ")";
+            return "[D][" + (this.getDone() == 1 ? "X" : " ") + "] " + this.getName()
+                    + " (by: " + due.format(outputFormat) + ")";
         }
     }
 
@@ -66,7 +67,7 @@ public class Deadline extends Task {
      * @return The raw due date string.
      */
     public String getDue_string() {
-        return this.due_string;
+        return this.dueString;
     }
 
     /**
