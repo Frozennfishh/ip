@@ -7,10 +7,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * The {@code DateTimeParser} class provides methods for parsing date and time strings
- * into {@code LocalDateTime} or {@code LocalDate} objects.
+ * Utility class for parsing date and date-time strings into {@code LocalDateTime} or {@code LocalDate} objects.
  * <p>
- * It supports multiple date and date-time formats to accommodate various input formats.
+ * Supports multiple date and date-time formats to handle various input styles.
  * </p>
  */
 public class DateTimeParser {
@@ -39,13 +38,13 @@ public class DateTimeParser {
     /**
      * Parses a date-time string into a {@code LocalDateTime} object.
      * <p>
-     * The method iterates through an array of predefined date-time patterns.
-     * If a pattern matches, the corresponding {@code LocalDateTime} object is returned.
-     * If no patterns match, {@code null} is returned.
+     * Attempts to match the input string against multiple predefined date-time formats.
+     * If parsing succeeds, a corresponding {@code LocalDateTime} object is returned.
+     * Otherwise, returns {@code null}.
      * </p>
      *
-     * @param input The date-time string to be parsed.
-     * @return A {@code LocalDateTime} object if parsing succeeds, otherwise {@code null}.
+     * @param input The date-time string to parse.
+     * @return A {@code LocalDateTime} object if parsing is successful, otherwise {@code null}.
      */
     public static LocalDateTime parseDateTime(String input) {
         for (String pattern : DATE_TIME_PATTERNS) {
@@ -61,16 +60,17 @@ public class DateTimeParser {
     }
 
     /**
-     * Parses a date string into a {@code LocalDateTime} object.
+     * Parses a date string into a {@code LocalDateTime} object with time set to midnight.
      * <p>
-     * The method iterates through an array of predefined date patterns.
-     * If a pattern matches, the corresponding {@code LocalDate} object is created and
-     * then converted into {@code LocalDateTime} by setting the time to midnight.
-     * If no patterns match, {@code null} is returned.
+     * Attempts to match the input string against multiple predefined date formats.
+     * If parsing succeeds, the resulting {@code LocalDate} is converted to a {@code LocalDateTime}
+     * by setting the time to midnight (00:00).
+     * If parsing fails, returns {@code null}.
      * </p>
      *
-     * @param input The date string to be parsed.
-     * @return A {@code LocalDateTime} object with time set to midnight if parsing succeeds, otherwise {@code null}.
+     * @param input The date string to parse.
+     * @return A {@code LocalDateTime} object with time set to midnight if parsing is successful,
+     *         otherwise {@code null}.
      */
     public static LocalDateTime parseDate(String input) {
         for (String pattern : DATE_PATTERNS) {
