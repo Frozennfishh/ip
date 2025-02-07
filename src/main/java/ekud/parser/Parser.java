@@ -3,7 +3,20 @@ package ekud.parser;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import ekud.command.ClearCommand;
+import ekud.command.Command;
+import ekud.command.DeadlineCommand;
+import ekud.command.DeleteCommand;
+import ekud.command.DueCommand;
+import ekud.command.EventCommand;
+import ekud.command.ExitCommand;
+import ekud.command.ListCommand;
+import ekud.command.MarkCommand;
+import ekud.command.TodoCommand;
+import ekud.command.UnknownCommand;
+import ekud.command.UnmarkCommand;
 import ekud.memory.TaskList;
+import ekud.ui.Ui;
 
 /**
  * The {@code Parser} class provides utility methods for parsing user input
@@ -15,6 +28,25 @@ public class Parser {
      * Constructs a {@code Parser} object.
      */
     public Parser() {
+    }
+
+    public static Command parse(String s) {
+        String[] temp = s.split(" ", 2);
+        String command = temp[0];
+        String input = temp.length > 1 ? temp[1] : null;
+        switch (command) {
+        case "bye": return new ExitCommand(input);
+        case "list": return new ListCommand(input);
+        case "clear": return new ClearCommand(input);
+        case "mark": return new MarkCommand(input);
+        case "unmark": return new UnmarkCommand(input);
+        case "todo": return new TodoCommand(input);
+        case "deadline": return new DeadlineCommand(input);
+        case "event": return new EventCommand(input);
+        case "delete": return new DeleteCommand(input);
+        case "due": return new DueCommand(input);
+        default: return new UnknownCommand(input);
+        }
     }
 
     /**

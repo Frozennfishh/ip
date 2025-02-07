@@ -8,7 +8,7 @@ import ekud.memory.TaskList;
 import ekud.tasks.Task;
 
 /**
- * Handles user interaction for the Ekud task manager.
+ * Handles user interaction for the ekud.gui.Ekud task manager.
  * <p>
  * The {@code Ui} class is responsible for reading user input, displaying messages,
  * and providing feedback based on user commands.
@@ -30,15 +30,16 @@ public class Ui {
      *
      * @return A string array where the first element is the command and the second (if present) is the argument.
      */
-    public String[] readLine() {
-        return scanner.nextLine().split(" ", 2);
+    public String readLine() {
+        return scanner.nextLine();
     }
 
     /**
      * Displays a message indicating that the task list is empty.
      */
-    public void listEmpty() {
+    public String listEmpty() {
         System.out.println("List is empty! Yippee!");
+        return "List is empty! Yippee!";
     }
 
     /**
@@ -67,16 +68,17 @@ public class Ui {
     /**
      * Displays a goodbye message and exits the program.
      */
-    public void goodbye() {
+    public String goodbye() {
         System.out.println("Bye. Hope to see you again soon!\n");
         buffer();
         System.exit(0);
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
      * Displays a visual separator to improve readability in the console.
      */
-    public void buffer() {
+    public static void buffer() {
         System.out.println("   /\\_/\\\n"
                 + "= (^ v ^) =\n"
                 + "  /     \\     ");
@@ -86,15 +88,16 @@ public class Ui {
     /**
      * Displays an error message when a task does not exist.
      */
-    public void taskDoesNotExist() {
+    public String taskDoesNotExist() {
         System.out.println("This task does not exist :( Try again!");
+        return "This task does not exist :( Try again!";
     }
 
     /**
      * Displays an error message when no task input is provided.
      */
-    public void taskNotGiven() {
-        System.out.println("No task given, try again!");
+    public String taskNotGiven() {
+        return "No task given, try again!";
     }
 
     /**
@@ -103,11 +106,13 @@ public class Ui {
      * @param tasks The {@code TaskList} containing the task.
      * @param index The index of the task to mark as completed.
      */
-    public void markDone(TaskList tasks, int index) {
+    public String markDone(TaskList tasks, int index) {
         tasks.get(index).setDone();
         System.out.println("Yippee marking this task as done!");
         System.out.println(tasks.get(index).display());
-        tasks.leftCheck();
+        return "Yippee marking this task as done!\n" +
+                tasks.get(index).display() + "\n" +
+                tasks.leftCheck();
     }
 
     /**
@@ -116,11 +121,13 @@ public class Ui {
      * @param tasks The {@code TaskList} containing the task.
      * @param index The index of the task to mark as not completed.
      */
-    public void markUndone(TaskList tasks, int index) {
+    public String markUndone(TaskList tasks, int index) {
         tasks.get(index).setUndone();
         System.out.println("Awww marking this task undone :(");
         System.out.println(tasks.get(index).display());
-        tasks.leftCheck();
+        return "Awww marking this task undone :(\n" +
+                tasks.get(index).display() + "\n" +
+                tasks.leftCheck();
     }
 
     /**
@@ -128,8 +135,9 @@ public class Ui {
      *
      * @param s The type of task that was added (e.g., "Todo", "Deadline", "Event").
      */
-    public void taskAdded(String s) {
+    public String taskAdded(String s) {
         System.out.println("Gotcha, " + s + " task added!");
+        return "Gotcha, " + s + " task added!";
     }
 
     /**
@@ -139,17 +147,19 @@ public class Ui {
      * @param index   The index of the task to be deleted.
      * @param storage The {@code Storage} instance to update the saved task list.
      */
-    public void delete(TaskList tasks, int index, Storage storage) {
+    public String delete(TaskList tasks, int index, Storage storage) {
         System.out.println("Omgie, removing this task from the list!");
         System.out.println(tasks.get(index).display());
+        String temp = tasks.get(index).display();
         tasks.remove(index, storage);
+        return "Omgie, removing this task from the list! \n" + temp;
     }
 
     /**
      * Displays an error message for unrecognized commands.
      */
-    public void unknown() {
-        System.out.println("I don't understand ;-; Try again!");
+    public String showUnknown() {
+        return "I don't understand ;-; Try again!";
     }
 
     /**
@@ -161,14 +171,26 @@ public class Ui {
      *
      * @param list An {@code ArrayList<Task>} containing the matching tasks.
      */
-    public void findTaskPrint(ArrayList<Task> list) {
+    public String findTaskPrint(ArrayList<Task> list) {
         if (list.isEmpty()) {
             System.out.println("No related task found in this list :( Try again!");
+            return "No related task found in this list :( Try again!";
         } else {
+            StringBuilder sb = new StringBuilder();
+
             System.out.println("Here are the matching tasks in your list!");
+            sb.append("Here are the matching tasks in your list!\n");
+
             for (int i = 0; i < list.size(); i++) {
                 System.out.println(i + 1 + ". " + list.get(i).display());
+                sb.append(i + 1).append(". ").append(list.get(i).display()).append("\n");
             }
+
+            return sb.toString();
         }
+    }
+
+    public String invalidDateGiven() {
+        return "Invalid date given, try again!";
     }
 }

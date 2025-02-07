@@ -29,7 +29,7 @@ public class TaskList {
     /**
      * Checks how many tasks are left to complete and prints the count.
      */
-    public void leftCheck() {
+    public String leftCheck() {
         int left = 0;
         for (Task task : list) {
             if (task.getDone() == 0) {
@@ -37,6 +37,7 @@ public class TaskList {
             }
         }
         System.out.println("You're left with " + left + " tasks left to do!");
+        return "You're left with " + left + " tasks left to do!";
     }
 
     /**
@@ -89,10 +90,10 @@ public class TaskList {
      * @param task The task to add.
      * @param storage The {@code Storage} instance used to save the task list.
      */
-    public void add(Task task, Storage storage) {
+    public String add(Task task, Storage storage) {
         list.add(task);
-        this.leftCheck();
         storage.saveToFile(this);
+        return task.display() + "\n" + this.leftCheck();
     }
 
     /**
@@ -114,7 +115,7 @@ public class TaskList {
      *
      * @param dueDate The {@code LocalDate} to check for due tasks.
      */
-    public void dueCheck(LocalDate dueDate) {
+    public String dueCheck(LocalDate dueDate) {
         ArrayList<IndexTaskPair> undone = new ArrayList<>();
         ArrayList<IndexTaskPair> done = new ArrayList<>();
 
@@ -144,14 +145,29 @@ public class TaskList {
             }
         }
 
-        System.out.println("Here are the tasks that are due on " + dueDate + ":");
-        System.out.println("Undone:");
-        for (IndexTaskPair pair : undone) {
-            pair.indexTaskPairDisplay();
-        }
-        System.out.println("\n" + "Done:");
-        for (IndexTaskPair pair : done) {
-            pair.indexTaskPairDisplay();
+        if (undone.isEmpty() && done.isEmpty()) {
+            return "There is no task due on " + dueDate + "!";
+        } else {
+            StringBuilder sb = new StringBuilder();
+
+            System.out.println("Here are the tasks that are due on " + dueDate + ":");
+            System.out.println("Undone:");
+            sb.append("Here are the tasks that are due on ").append(dueDate).append(":\n");
+            sb.append("Undone:\n");
+
+            for (IndexTaskPair pair : undone) {
+                System.out.println(pair.indexTaskPairDisplay());
+                sb.append(pair.indexTaskPairDisplay()).append("\n");
+            }
+
+            System.out.println("\n" + "Done:");
+            sb.append("\nDone:\n");
+
+            for (IndexTaskPair pair : done) {
+                sb.append(pair.indexTaskPairDisplay()).append("\n");
+            }
+
+            return sb.toString();
         }
     }
 
