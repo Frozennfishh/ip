@@ -9,17 +9,18 @@ import ekud.tasks.Event;
 import ekud.tasks.Task;
 
 /**
- * Represents a list of tasks.
- * The {@code TaskList} class manages adding, removing, and checking tasks,
- * as well as interacting with the storage system.
+ * Manages a list of tasks, providing methods for adding, removing, and searching tasks.
+ * <p>
+ * This class interacts with storage to persist task data.
+ * </p>
  */
 public class TaskList {
     private ArrayList<Task> list;
 
     /**
-     * Constructs a {@code TaskList} object by loading tasks from storage.
+     * Constructs a {@code TaskList} by loading tasks from storage.
      *
-     * @param storage The {@code Storage} instance to load tasks from.
+     * @param storage The storage instance used to load tasks.
      * @throws FileNotFoundException If the storage file is not found.
      */
     public TaskList(Storage storage) throws FileNotFoundException {
@@ -27,7 +28,9 @@ public class TaskList {
     }
 
     /**
-     * Checks how many tasks are left to complete and prints the count.
+     * Counts and displays the number of incomplete tasks.
+     *
+     * @return A message indicating the number of tasks left to complete.
      */
     public String leftCheck() {
         int left = 0;
@@ -50,26 +53,26 @@ public class TaskList {
     }
 
     /**
-     * Returns the size of the task list.
+     * Returns the number of tasks in the list.
      *
-     * @return The number of tasks in the list.
+     * @return The total number of tasks.
      */
     public int size() {
         return list.size();
     }
 
     /**
-     * Retrieves a task at a specified index.
+     * Retrieves a task at the specified index.
      *
      * @param i The index of the task.
-     * @return The {@code Task} at the given index.
+     * @return The task at the specified index.
      */
     public Task get(int i) {
         return list.get(i);
     }
 
     /**
-     * Clears all tasks from the list.
+     * Removes all tasks from the list.
      */
     public void clear() {
         list.clear();
@@ -78,7 +81,7 @@ public class TaskList {
     /**
      * Retrieves the list of tasks.
      *
-     * @return An {@code ArrayList<Task>} containing all tasks.
+     * @return A list containing all tasks.
      */
     public ArrayList<Task> getList() {
         return this.list;
@@ -87,8 +90,9 @@ public class TaskList {
     /**
      * Adds a task to the list, updates storage, and checks remaining tasks.
      *
-     * @param task The task to add.
-     * @param storage The {@code Storage} instance used to save the task list.
+     * @param task    The task to add.
+     * @param storage The storage instance used to save the task list.
+     * @return A message confirming the task addition along with the number of tasks left.
      */
     public String add(Task task, Storage storage) {
         list.add(task);
@@ -99,8 +103,8 @@ public class TaskList {
     /**
      * Removes a task from the list, updates storage, and checks remaining tasks.
      *
-     * @param index The index of the task to remove.
-     * @param storage The {@code Storage} instance used to save the task list.
+     * @param index   The index of the task to remove.
+     * @param storage The storage instance used to save the task list.
      */
     public void remove(int index, Storage storage) {
         list.remove(index);
@@ -109,11 +113,13 @@ public class TaskList {
     }
 
     /**
-     * Checks for tasks that are due on a specific date and prints them.
-     * Prints list of tasks that are due on specified date.
-     * Split by done and undone tasks.
+     * Finds tasks that are due on a specific date.
+     * <p>
+     * Tasks are categorized into "Undone" and "Done" based on completion status.
+     * </p>
      *
-     * @param dueDate The {@code LocalDate} to check for due tasks.
+     * @param dueDate The date to check for due tasks.
+     * @return A formatted string listing tasks due on the specified date.
      */
     public String dueCheck(LocalDate dueDate) {
         ArrayList<IndexTaskPair> undone = new ArrayList<>();
@@ -173,14 +179,9 @@ public class TaskList {
 
     /**
      * Searches for tasks that contain a specific keyword in their name.
-     * <p>
-     * This method iterates through the task list and returns a list of tasks
-     * whose names contain the given input string.
-     * </p>
      *
-     * @param input The keyword to search for within task names.
-     * @return An {@code ArrayList<Task>} containing tasks that match the search criteria.
-     *         Returns an empty list if no matching tasks are found.
+     * @param input The keyword to search for.
+     * @return A list of tasks that match the search criteria.
      */
     public ArrayList<Task> findTask(String input) {
         ArrayList<Task> output = new ArrayList<>();

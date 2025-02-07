@@ -19,8 +19,7 @@ import ekud.memory.TaskList;
 import ekud.ui.Ui;
 
 /**
- * The {@code Parser} class provides utility methods for parsing user input
- * and validating index values within a task list.
+ * Provides utility methods for parsing user input and validating index values within a task list.
  */
 public class Parser {
 
@@ -30,6 +29,16 @@ public class Parser {
     public Parser() {
     }
 
+    /**
+     * Parses a user input string and returns the corresponding {@code Command} object.
+     * <p>
+     * The method extracts the command keyword from the input and maps it to the appropriate command class.
+     * If the command is unrecognized, an {@code UnknownCommand} is returned.
+     * </p>
+     *
+     * @param s The user input string.
+     * @return The corresponding {@code Command} object based on the input.
+     */
     public static Command parse(String s) {
         String[] temp = s.split(" ", 2);
         String command = temp[0];
@@ -51,8 +60,11 @@ public class Parser {
 
     /**
      * Checks whether the given string is a valid index within the provided {@code TaskList}.
+     * <p>
+     * A valid index must be an integer within the bounds of the task list size.
+     * </p>
      *
-     * @param s The string to check.
+     * @param s The string representing the index.
      * @param t The {@code TaskList} where the index should exist.
      * @return {@code true} if the string is not an integer or exceeds the task list size, otherwise {@code false}.
      */
@@ -62,6 +74,10 @@ public class Parser {
 
     /**
      * Determines whether a given string is not a valid integer in the specified radix.
+     * <p>
+     * This method verifies that the string consists of valid numerical characters.
+     * It also accounts for negative numbers.
+     * </p>
      *
      * @param s The string to check.
      * @param radix The numerical base (e.g., 10 for decimal).
@@ -89,7 +105,7 @@ public class Parser {
     /**
      * Parses a date string and converts it into a {@code LocalDate} object.
      * <p>
-     * This method attempts to parse the input using predefined date-time patterns.
+     * This method attempts to parse the input using predefined date-time formats.
      * If parsing as a {@code LocalDateTime} succeeds, it extracts the date portion.
      * If parsing as a {@code LocalDate} succeeds, it returns the corresponding date.
      * If both attempts fail, {@code null} is returned.

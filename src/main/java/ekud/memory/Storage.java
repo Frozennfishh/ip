@@ -13,18 +13,18 @@ import ekud.tasks.Task;
 import ekud.tasks.Todo;
 
 /**
- * The {@code Storage} class handles loading and saving task data to a file.
- * It ensures that the file exists and maintains task persistence.
+ * Handles loading and saving task data to a file for persistent storage.
  */
 public class Storage {
     private File file;
 
     /**
-     * Constructs a {@code Storage} object and initializes the file.
-     * - Creates parent directories if they do not exist.
-     * - Creates a new file if it does not already exist.
+     * Constructs a {@code Storage} object and initializes the storage file.
+     * <p>
+     * If the file does not exist, it creates the necessary directories and the file itself.
+     * </p>
      *
-     * @param filePath The path of the file where task data is stored.
+     * @param filePath The file path where task data is stored.
      */
     public Storage(String filePath) {
         this.file = new File(filePath);
@@ -45,10 +45,9 @@ public class Storage {
     }
 
     /**
-     * Loads the content of the task file and initializes a list of tasks.
+     * Loads tasks from the storage file and returns them as a list.
      *
-     * @return An {@code ArrayList<Task>} containing all loaded tasks.
-     *         Returns {@code null} if the file is empty.
+     * @return A list of tasks loaded from the file. Returns an empty list if the file is empty.
      * @throws FileNotFoundException If the file cannot be found.
      */
     public ArrayList<Task> loadFileContent() throws FileNotFoundException {
@@ -86,9 +85,9 @@ public class Storage {
     }
 
     /**
-     * Saves the current task list to the file, overwriting the existing content.
+     * Saves the current task list to the storage file, overwriting existing content.
      *
-     * @param list The {@code TaskList} containing tasks to be saved.
+     * @param list The task list to be saved.
      */
     public void saveToFile(TaskList list) {
         try (FileWriter writer = new FileWriter(file)) {
