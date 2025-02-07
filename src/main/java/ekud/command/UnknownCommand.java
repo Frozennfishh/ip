@@ -10,12 +10,9 @@ public class UnknownCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         super.execute(tasks, ui, storage);
+        return ui.showUnknown();
     }
 
-    @Override
-    public String getString() {
-        return Ui.showUnknown();
-    }
 }

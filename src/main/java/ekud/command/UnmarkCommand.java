@@ -11,15 +11,16 @@ public class UnmarkCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (this.getInput() == null) {
-            ui.taskNotGiven();
+            return ui.taskNotGiven();
         }
         if (Parser.isValidIndex(this.getInput(), tasks)) {
-            ui.taskDoesNotExist();
+            return ui.taskDoesNotExist();
         } else {
-            ui.markUndone(tasks, Integer.parseInt(this.getInput()) - 1);
+            String temp = ui.markUndone(tasks, Integer.parseInt(this.getInput()) - 1);
             storage.saveToFile(tasks);
+            return temp;
         }
     }
 }

@@ -11,14 +11,14 @@ public class DeleteCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (this.getInput() == null) {
-            ui.taskNotGiven();
+            return ui.taskNotGiven();
         } else {
             if (Parser.isValidIndex(this.getInput(), tasks)) {
-                ui.taskDoesNotExist();
+                return ui.taskDoesNotExist();
             } else {
-                ui.delete(tasks, Integer.parseInt(this.getInput()) - 1, storage);
+                return ui.delete(tasks, Integer.parseInt(this.getInput()) - 1, storage);
             }
         }
     }

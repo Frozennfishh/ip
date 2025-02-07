@@ -11,12 +11,12 @@ public class TodoCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (this.getInput() == null) {
-            ui.taskNotGiven();
+            return ui.taskNotGiven();
         } else {
-            ui.taskAdded("Todo");
-            tasks.add(new Todo(this.getInput(), 0), storage);
+            return ui.taskAdded("Todo") + "\n" +
+                    tasks.add(new Todo(this.getInput(), 0), storage);
         }
     }
 }

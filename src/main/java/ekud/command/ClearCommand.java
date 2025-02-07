@@ -10,9 +10,10 @@ public class ClearCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         System.out.println("Okies, clearing list!");
         tasks.clear();
         storage.saveToFile(tasks);
+        return "Okies, clearing list!";
     }
 }

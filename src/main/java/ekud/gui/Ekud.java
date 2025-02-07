@@ -37,15 +37,14 @@ public class Ekud {
      * - Reads user input and executes commands.
      * - Terminates when the exit command is issued.
      */
-    public void run() {
+    public String run() {
         ui.intro();
         boolean isExit = false;
         while (!isExit) {
             Command c = Parser.parse(ui.readLine());
-            c.execute(taskList, ui, storage);
-            isExit = c.isExit();
+            return c.execute(taskList, ui, storage);
         }
-        ui.goodbye();
+        return ui.goodbye();
     }
 
     /**

@@ -12,7 +12,7 @@ public class DeadlineCommand extends Command{
     public DeadlineCommand(String input) {
         super(input);
         if (this.getInput() == null) {
-            Ui.taskNotGiven();
+            //Ui.taskNotGiven();
         } else {
             String[] temp = input.split(" /by ", 2);
             this.task = temp[0];
@@ -21,17 +21,19 @@ public class DeadlineCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        super.execute(tasks, ui, storage);
         if (this.getInput() == null) {
-            //Ui.taskNotGiven();
+            return ui.taskNotGiven();
         } else {
             if (dueDate == null) {
                 System.out.println("Deadline not given! Try again!");
+                return "Deadline not given! Try again!";
             } else {
-                ui.taskAdded("Deadline");
-                tasks.add(new Deadline(task, dueDate, 0), storage);
+                return ui.taskAdded("Deadline") + "\n" +
+                        this.getTasks().add(new Deadline(task, dueDate, 0), this.getStorage());
+
             }
         }
-
     }
 }

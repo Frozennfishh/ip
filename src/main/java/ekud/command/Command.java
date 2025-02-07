@@ -19,7 +19,9 @@ import ekud.ui.Ui;
  */
 public class Command {
     private String input;
-    private boolean isExit;
+    private TaskList tasks;
+    private Ui ui;
+    private Storage storage;
 
     /**
      * Constructs a {@code Command} object from the user input.
@@ -57,8 +59,11 @@ public class Command {
      * @param ui      The {@code Ui} instance for user interaction.
      * @param storage The {@code Storage} instance for saving tasks.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        System.out.println("I dont understand");
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        this.tasks = tasks;
+        this.ui = ui;
+        this.storage = storage;
+        return null;
     }
 
     public String getInput() {
@@ -69,7 +74,11 @@ public class Command {
         return null;
     }
 
-    public boolean isExit() {
-        return isExit;
+    public TaskList getTasks() {
+        return this.tasks;
+    }
+
+    public Storage getStorage() {
+        return this.storage;
     }
 }

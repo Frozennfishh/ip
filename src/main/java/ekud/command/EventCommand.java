@@ -12,7 +12,7 @@ public class EventCommand extends Command{
     public EventCommand(String input) {
         super(input);
         if (this.getInput() == null) {
-            Ui.taskNotGiven();
+            //ui.taskNotGiven();
         } else {
             String[] temp = input.split(" /from ", 2);
             this.task = temp[0];
@@ -23,16 +23,18 @@ public class EventCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (this.getInput() == null) {
-            ui.taskNotGiven();
+            return ui.taskNotGiven();
         } else if (startDate == null) {
             System.out.println("Start date not given");
+            return "Start date not given";
         } else if (endDate == null) {
             System.out.println("End date not given");
+            return "End date not given";
         } else {
-            ui.taskAdded("Event");
-            tasks.add(new Event(task, startDate, endDate, 0), storage);
+            return ui.taskAdded("Event") + "\n" +
+                    tasks.add(new Event(task, startDate, endDate, 0), storage);
         }
     }
 }

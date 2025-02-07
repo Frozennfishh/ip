@@ -11,15 +11,16 @@ public class MarkCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (this.getInput() == null) {
-            ui.taskNotGiven();
+            return ui.taskNotGiven();
         }
         if (Parser.isValidIndex(this.getInput(), tasks)) {
-            ui.taskDoesNotExist();
+            return ui.taskDoesNotExist();
         } else {
-            ui.markDone(tasks, Integer.parseInt(this.getInput()) - 1);
+            String temp = ui.markDone(tasks, Integer.parseInt(this.getInput()) - 1);
             storage.saveToFile(tasks);
+            return temp;
         }
     }
 }

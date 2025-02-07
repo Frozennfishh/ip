@@ -13,12 +13,12 @@ public class DueCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         LocalDate dueDate = Parser.getDate(this.getInput());
         if (this.getInput() == null || dueDate == null) {
-            ui.taskNotGiven();
+            return ui.taskNotGiven();
         } else {
-            tasks.dueCheck(dueDate);
+            return tasks.dueCheck(dueDate);
         }
     }
 }

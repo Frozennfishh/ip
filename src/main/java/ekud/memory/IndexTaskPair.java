@@ -26,7 +26,7 @@ public class IndexTaskPair {
      * Displays the task with its assigned index.
      * Prints the task in the format: {@code "<index>. <task display string>"}.
      */
-    public void indexTaskPairDisplay() {
-        System.out.println(index + ". " + task.display());
+    public String indexTaskPairDisplay() {
+        return index + ". " + task.display();
     }
 }
