@@ -189,4 +189,8 @@ public class Ui {
             return sb.toString();
         }
     }
+
+    public String invalidDateGiven() {
+        return "Invalid date given, try again!";
+    }
 }

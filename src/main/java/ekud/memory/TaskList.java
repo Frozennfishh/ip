@@ -145,26 +145,30 @@ public class TaskList {
             }
         }
 
-        StringBuilder sb = new StringBuilder();
+        if (undone.isEmpty() && done.isEmpty()) {
+            return "There is no task due on " + dueDate + "!";
+        } else {
+            StringBuilder sb = new StringBuilder();
 
-        System.out.println("Here are the tasks that are due on " + dueDate + ":");
-        System.out.println("Undone:");
-        sb.append("Here are the tasks that are due on ").append(dueDate).append(":\n");
-        sb.append("Undone:\n");
+            System.out.println("Here are the tasks that are due on " + dueDate + ":");
+            System.out.println("Undone:");
+            sb.append("Here are the tasks that are due on ").append(dueDate).append(":\n");
+            sb.append("Undone:\n");
 
-        for (IndexTaskPair pair : undone) {
-            System.out.println(pair.indexTaskPairDisplay());
-            sb.append(pair.indexTaskPairDisplay()).append("\n");
+            for (IndexTaskPair pair : undone) {
+                System.out.println(pair.indexTaskPairDisplay());
+                sb.append(pair.indexTaskPairDisplay()).append("\n");
+            }
+
+            System.out.println("\n" + "Done:");
+            sb.append("\nDone:\n");
+
+            for (IndexTaskPair pair : done) {
+                sb.append(pair.indexTaskPairDisplay()).append("\n");
+            }
+
+            return sb.toString();
         }
-
-        System.out.println("\n" + "Done:");
-        sb.append("\nDone:\n");
-
-        for (IndexTaskPair pair : done) {
-            sb.append(pair.indexTaskPairDisplay()).append("\n");
-        }
-
-        return sb.toString();
     }
 
     /**

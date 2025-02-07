@@ -2,6 +2,7 @@ package ekud.gui;
 
 import java.io.FileNotFoundException;
 
+import ekud.exceptions.DukeException;
 import ekud.memory.Storage;
 import ekud.memory.TaskList;
 import ekud.command.Command;
@@ -60,8 +61,8 @@ public class Ekud {
     /**
      * Generates a response for the user's chat message.
      */
-    /*public String getResponse(String input) {
+    public String getResponse(String input) {
         Command c = Parser.parse(input);
-        c.execute(taskList, ui, storage);
-    }*/
+        return c.execute(taskList, ui, storage);
+    }
 }

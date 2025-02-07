@@ -8,15 +8,17 @@ import ekud.parser.Parser;
 import ekud.ui.Ui;
 
 public class DueCommand extends Command{
+    LocalDate dueDate;
     public DueCommand(String input) {
         super(input);
+        this.dueDate = input == null ? null : Parser.getDate(this.getInput());
     }
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        LocalDate dueDate = Parser.getDate(this.getInput());
-        if (this.getInput() == null || dueDate == null) {
-            return ui.taskNotGiven();
+
+        if (dueDate == null) {
+            return ui.invalidDateGiven();
         } else {
             return tasks.dueCheck(dueDate);
         }
