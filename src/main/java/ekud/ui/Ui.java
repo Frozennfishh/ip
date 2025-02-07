@@ -30,8 +30,8 @@ public class Ui {
      *
      * @return A string array where the first element is the command and the second (if present) is the argument.
      */
-    public String[] readLine() {
-        return scanner.nextLine().split(" ", 2);
+    public String readLine() {
+        return scanner.nextLine();
     }
 
     /**
@@ -76,7 +76,7 @@ public class Ui {
     /**
      * Displays a visual separator to improve readability in the console.
      */
-    public void buffer() {
+    public static void buffer() {
         System.out.println("   /\\_/\\\n"
                 + "= (^ v ^) =\n"
                 + "  /     \\     ");
@@ -93,7 +93,7 @@ public class Ui {
     /**
      * Displays an error message when no task input is provided.
      */
-    public void taskNotGiven() {
+    public static void taskNotGiven() {
         System.out.println("No task given, try again!");
     }
 
@@ -148,8 +148,8 @@ public class Ui {
     /**
      * Displays an error message for unrecognized commands.
      */
-    public void unknown() {
-        System.out.println("I don't understand ;-; Try again!");
+    public static String showUnknown() {
+        return "I don't understand ;-; Try again!";
     }
 
     /**

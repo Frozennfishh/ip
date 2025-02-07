@@ -4,7 +4,8 @@ import java.io.FileNotFoundException;
 
 import ekud.memory.Storage;
 import ekud.memory.TaskList;
-import ekud.ui.Command;
+import ekud.command.Command;
+import ekud.parser.Parser;
 import ekud.ui.Ui;
 
 /**
@@ -40,7 +41,7 @@ public class Ekud {
         ui.intro();
         boolean isExit = false;
         while (!isExit) {
-            Command c = new Command(ui.readLine());
+            Command c = Parser.parse(ui.readLine());
             c.execute(taskList, ui, storage);
             isExit = c.isExit();
         }
@@ -60,7 +61,8 @@ public class Ekud {
     /**
      * Generates a response for the user's chat message.
      */
-    public String getResponse(String input) {
-        return "Ekud heard: " + input;
-    }
+    /*public String getResponse(String input) {
+        Command c = Parser.parse(input);
+        c.execute(taskList, ui, storage);
+    }*/
 }

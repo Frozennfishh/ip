@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class EkudApplication extends Application {
-    private Ekud ekud = new Ekud("data/list.txt");
+    private final Ekud ekud = new Ekud("data/list.txt");
 
     public EkudApplication() throws FileNotFoundException {
     }
