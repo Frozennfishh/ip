@@ -5,10 +5,22 @@ import ekud.memory.TaskList;
 import ekud.tasks.Event;
 import ekud.ui.Ui;
 
+/**
+ * Represents a command to add an event task to the task list.
+ */
 public class EventCommand extends Command{
     String task;
     String startDate;
     String endDate;
+
+    /**
+     * Constructs an {@code EventCommand} with the given user input.
+     * <p>
+     * Parses the input to extract the task description, start date, and end date.
+     * </p>
+     *
+     * @param input The user input specifying the event details.
+     */
     public EventCommand(String input) {
         super(input);
         if (this.getInput() == null) {
@@ -22,6 +34,18 @@ public class EventCommand extends Command{
         }
     }
 
+    /**
+     * Executes the command to add an event task.
+     * <p>
+     * If any required field (task, start date, or end date) is missing, an error message is returned.
+     * Otherwise, the event task is added to the task list.
+     * </p>
+     *
+     * @param tasks   The task list where the event will be added.
+     * @param ui      The UI instance for displaying messages.
+     * @param storage The storage instance for saving the updated task list.
+     * @return A response message indicating the outcome of the command execution.
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (this.getInput() == null) {

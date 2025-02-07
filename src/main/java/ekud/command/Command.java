@@ -11,10 +11,9 @@ import ekud.tasks.Todo;
 import ekud.ui.Ui;
 
 /**
- * Represents a user command in the ekud.gui.Ekud task manager.
+ * Represents a user command in the Ekud task manager.
  * <p>
- * The {@code Command} class processes and executes different types of user commands,
- * including adding, marking, deleting, and listing tasks.
+ * This is the base class for all commands, which process and execute different user actions.
  * </p>
  */
 public class Command {
@@ -24,40 +23,24 @@ public class Command {
     private Storage storage;
 
     /**
-     * Constructs a {@code Command} object from the user input.
-     * <p>
-     * The first element of the input array is treated as the command.
-     * If there are additional elements, they are stored as the input string.
-     * </p>
+     * Constructs a command with the given user input.
      *
-     * @param input A string array containing the command and optional arguments.
+     * @param input The user command input.
      */
     public Command(String input) {
         this.input = input;
     }
 
     /**
-     * Executes the command based on its type.
+     * Executes the command.
      * <p>
-     * The method processes various commands, such as:
-     * <ul>
-     *     <li>{@code bye} - Exits the program.</li>
-     *     <li>{@code list} - Displays all tasks.</li>
-     *     <li>{@code clear} - Clears all tasks from the list.</li>
-     *     <li>{@code mark} - Marks a task as completed.</li>
-     *     <li>{@code unmark} - Unmarks a completed task.</li>
-     *     <li>{@code todo} - Adds a new to-do task.</li>
-     *     <li>{@code deadline} - Adds a deadline task with a due date.</li>
-     *     <li>{@code event} - Adds an event task with a start and end date.</li>
-     *     <li>{@code delete} - Removes a task from the list.</li>
-     *     <li>{@code due} - Displays tasks due on a specific date.</li>
-     *     <li>Other inputs are treated as unknown commands.</li>
-     * </ul>
+     * This method is intended to be overridden by subclasses to define specific command behaviors.
      * </p>
      *
-     * @param tasks   The {@code TaskList} where tasks are stored.
-     * @param ui      The {@code Ui} instance for user interaction.
-     * @param storage The {@code Storage} instance for saving tasks.
+     * @param tasks   The task list.
+     * @param ui      The user interface instance.
+     * @param storage The storage handler.
+     * @return A response message indicating the result of the execution.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         this.tasks = tasks;
@@ -66,18 +49,38 @@ public class Command {
         return null;
     }
 
+    /**
+     * Returns the user input.
+     *
+     * @return The command input string.
+     */
     public String getInput() {
         return this.input;
     }
 
+    /**
+     * Placeholder method to be overridden by subclasses if needed.
+     *
+     * @return A string result (default: {@code null}).
+     */
     public String getString() {
         return null;
     }
 
+    /**
+     * Returns the associated task list.
+     *
+     * @return The task list.
+     */
     public TaskList getTasks() {
         return this.tasks;
     }
 
+    /**
+     * Returns the storage handler.
+     *
+     * @return The storage instance.
+     */
     public Storage getStorage() {
         return this.storage;
     }
