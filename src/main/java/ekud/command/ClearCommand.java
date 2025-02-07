@@ -4,7 +4,7 @@ import ekud.memory.Storage;
 import ekud.memory.TaskList;
 import ekud.ui.Ui;
 
-public class ClearCommand extends Command{
+public class ClearCommand extends Command {
     public ClearCommand(String input) {
         super(input);
     }

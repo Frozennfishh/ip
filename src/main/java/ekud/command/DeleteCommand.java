@@ -5,7 +5,7 @@ import ekud.memory.TaskList;
 import ekud.parser.Parser;
 import ekud.ui.Ui;
 
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
     public DeleteCommand(String input) {
         super(input);
     }

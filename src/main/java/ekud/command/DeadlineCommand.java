@@ -5,9 +5,9 @@ import ekud.memory.TaskList;
 import ekud.tasks.Deadline;
 import ekud.ui.Ui;
 
-public class DeadlineCommand extends Command{
-    String task;
-    String dueDate;
+public class DeadlineCommand extends Command {
+    private String task;
+    private String dueDate;
 
     public DeadlineCommand(String input) {
         super(input);
@@ -30,8 +30,8 @@ public class DeadlineCommand extends Command{
                 System.out.println("Deadline not given! Try again!");
                 return "Deadline not given! Try again!";
             } else {
-                return ui.taskAdded("Deadline") + "\n" +
-                        this.getTasks().add(new Deadline(task, dueDate, 0), this.getStorage());
+                return ui.taskAdded("Deadline") + "\n"
+                        + this.getTasks().add(new Deadline(task, dueDate, 0), this.getStorage());
 
             }
         }

@@ -5,7 +5,7 @@ import ekud.memory.TaskList;
 import ekud.parser.Parser;
 import ekud.ui.Ui;
 
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
     public MarkCommand(String input) {
         super(input);
     }

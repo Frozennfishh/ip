@@ -5,7 +5,7 @@ import ekud.memory.TaskList;
 import ekud.tasks.Todo;
 import ekud.ui.Ui;
 
-public class TodoCommand extends Command{
+public class TodoCommand extends Command {
     public TodoCommand(String input) {
         super(input);
     }
@@ -15,8 +15,8 @@ public class TodoCommand extends Command{
         if (this.getInput() == null) {
             return ui.taskNotGiven();
         } else {
-            return ui.taskAdded("Todo") + "\n" +
-                    tasks.add(new Todo(this.getInput(), 0), storage);
+            return ui.taskAdded("Todo") + "\n"
+                    + tasks.add(new Todo(this.getInput(), 0), storage);
         }
     }
 }

@@ -4,7 +4,7 @@ import ekud.memory.Storage;
 import ekud.memory.TaskList;
 import ekud.ui.Ui;
 
-public class FindCommand extends Command{
+public class FindCommand extends Command {
     public FindCommand(String input) {
         super(input);
     }
