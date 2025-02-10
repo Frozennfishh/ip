@@ -77,28 +77,14 @@ public class DialogBox extends HBox {
 
     private void changeDialogStyle(String commandType) {
         switch(commandType) {
-            case "ClearCommand":
-                dialog.getStyleClass().add("clear-label");
+            case "TodoCommand":
+                dialog.getStyleClass().add("todo-label");
                 break;
-            case "DeadlineCommand", "EventCommand", "TodoCommand":
-                dialog.getStyleClass().add("add-label");
+            case "DeadlineCommand":
+                dialog.getStyleClass().add("deadline-label");
                 break;
             case "DeleteCommand":
                 dialog.getStyleClass().add("delete-label");
-                break;
-            case "DueCommand", "FindCommand", "ListCommand":
-                dialog.getStyleClass().add("list-label");
-                break;
-            case "MarkCommand":
-                dialog.getStyleClass().add("mark-label");
-                break;
-            case "UnknownCommand":
-                dialog.getStyleClass().add("unknown-label");
-                break;
-            case "UnmarkCommand":
-                dialog.getStyleClass().add("unmark-label");
-                break;
-            case "ExitCommand":
                 break;
             default:
                 // Do nothing
