@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import ekud.command.EventCommand;
 import ekud.tasks.Deadline;
 import ekud.tasks.Event;
 import ekud.tasks.Task;
@@ -216,5 +217,15 @@ public class TaskList {
         }
 
         return output;
+    }
+
+    public ArrayList<Event> getAllEvents() {
+        ArrayList<Event> res = new ArrayList<>();
+        for (Task task : this.list) {
+            if (task instanceof Event) {
+                res.add((Event) task);
+            }
+        }
+        return res;
     }
 }
