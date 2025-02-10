@@ -19,6 +19,7 @@ public class Ekud {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
+    private String commandType;
 
     /**
      * Constructs an instance of {@code Ekud}.
@@ -51,6 +52,7 @@ public class Ekud {
         boolean isExit = false;
         while (!isExit) {
             Command c = Parser.parse(ui.readLine());
+            commandType = c.getClass().getSimpleName();
             return c.execute(taskList, ui, storage);
         }
         return ui.goodbye();
@@ -77,6 +79,12 @@ public class Ekud {
      */
     public String getResponse(String input) {
         Command c = Parser.parse(input);
+        commandType = c.getClass().getSimpleName();
         return c.execute(taskList, ui, storage);
+    }
+
+    public String getCommandType() {
+        System.out.println(commandType);
+        return commandType;
     }
 }

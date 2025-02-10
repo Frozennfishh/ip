@@ -28,7 +28,7 @@ public class MainWindow extends AnchorPane {
     private Ekud ekud;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/cat_right.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/cat_left.png"));
+    private Image ekudImage = new Image(this.getClass().getResourceAsStream("/images/cat_left.png"));
 
     /**
      * Initializes the GUI components.
@@ -61,9 +61,10 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = ekud.getResponse(input);
+        String commandType = ekud.getCommandType();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getEkudDialog(response, dukeImage)
+                DialogBox.getEkudDialog(response, ekudImage, commandType)
         );
         userInput.clear();
     }

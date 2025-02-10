@@ -11,11 +11,11 @@
     -fx-border-radius: 1em 1em 1em 0;
 }
 
-.add-label {
+.todo-label {
     -fx-background-color: yellow;
 }
 
-.marked-label {
+.deadline-label {
     -fx-background-color: palegreen;
 }
 

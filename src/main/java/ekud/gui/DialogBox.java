@@ -74,6 +74,23 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
+
+    private void changeDialogStyle(String commandType) {
+        switch(commandType) {
+            case "TodoCommand":
+                dialog.getStyleClass().add("todo-label");
+                break;
+            case "DeadlineCommand":
+                dialog.getStyleClass().add("deadline-label");
+                break;
+            case "DeleteCommand":
+                dialog.getStyleClass().add("delete-label");
+                break;
+            default:
+                // Do nothing
+        }
+    }
+
     /**
      * Creates a dialog box representing Ekud's response.
      * <p>
@@ -84,10 +101,10 @@ public class DialogBox extends HBox {
      * @param img  The image representing Ekud.
      * @return A {@code DialogBox} containing Ekud’s response and image.
      */
-    public static DialogBox getEkudDialog(String text, Image img) {
+    public static DialogBox getEkudDialog(String text, Image img, String commandType) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.changeDialogStyle(commandType);
         return db;
     }
-
 }
