@@ -58,6 +58,7 @@ public class Parser {
      * @return {@code true} if the string is not an integer or exceeds the task list size, otherwise {@code false}.
      */
     public static boolean isValidIndex(String s, TaskList t) {
+        assert !t.isEmpty() : "Task List not given";
         return isNotInteger(s, 10) || Integer.parseInt(s) > t.size();
     }
 
