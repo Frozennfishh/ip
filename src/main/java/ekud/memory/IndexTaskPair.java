@@ -10,7 +10,7 @@ import ekud.tasks.Task;
  * </p>
  */
 public class IndexTaskPair {
-    private int index;
+    private final int index;
     private final Task task;
 
     /**

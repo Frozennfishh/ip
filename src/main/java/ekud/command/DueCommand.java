@@ -41,13 +41,14 @@ public class DueCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        super.execute(tasks, ui, storage);
         assert tasks != null : "Tasks object does not exist";
         assert ui != null : "UI object does not exist";
         assert storage != null : "Storage object does not exist";
         if (dueDate == null) {
             return ui.invalidDateGiven();
-        } else {
-            return tasks.dueCheck(dueDate);
         }
+        assert this.getTasks() != null : "TaskList object was not created properly";
+        return this.getTasks().dueCheck(dueDate);
     }
 }

@@ -22,9 +22,7 @@ public class DeadlineCommand extends Command {
      */
     public DeadlineCommand(String input) {
         super(input);
-        if (this.getInput() == null) {
-            //Ui.taskNotGiven();
-        } else {
+        if (this.getInput() != null) {
             String[] temp = input.split(" /by ", 2);
             this.task = temp[0];
             this.dueDate = temp.length > 1 ? temp[1] : null;
@@ -51,15 +49,15 @@ public class DeadlineCommand extends Command {
         assert storage != null : "Storage object does not exist";
         if (this.getInput() == null) {
             return ui.taskNotGiven();
-        } else {
-            if (dueDate == null) {
-                System.out.println("Deadline not given! Try again!");
-                return "Deadline not given! Try again!";
-            } else {
-                return ui.taskAdded("Deadline") + "\n"
-                        + this.getTasks().add(new Deadline(task, dueDate, 0), this.getStorage());
-
-            }
         }
+        //No /by detected in input, therefore deadline not given
+        if (dueDate == null) {
+            System.out.println("Deadline not given! Try again!");
+            return "Deadline not given! Try again!";
+        }
+        assert this.getTasks() != null : "TaskList object was not created properly";
+        assert this.getStorage() != null : "Storage file does not exist";
+        return ui.taskAdded("Deadline") + "\n"
+                + this.getTasks().add(new Deadline(task, dueDate, 0), this.getStorage());
     }
 }

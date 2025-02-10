@@ -15,7 +15,7 @@ import ekud.tasks.Task;
  * </p>
  */
 public class TaskList {
-    private ArrayList<Task> list;
+    private final ArrayList<Task> list;
 
     /**
      * Constructs a {@code TaskList} by loading tasks from storage.
@@ -127,53 +127,76 @@ public class TaskList {
 
         for (Task task : list) {
             if (task instanceof Deadline) {
+                //task has no due date
                 if (((Deadline) task).getDue() == null) {
                     continue;
                 }
-                if (((Deadline) task).getDue().toLocalDate().equals(dueDate)) {
-                    if (task.getDone() == 0) {
-                        undone.add(new IndexTaskPair(list.indexOf(task), task));
-                    } else {
-                        done.add(new IndexTaskPair(list.indexOf(task), task));
-                    }
+                //due date does not match input
+                if (!((Deadline) task).getDue().toLocalDate().equals(dueDate)) {
+                    continue;
                 }
+                //sort task to Done and Undone list
+                doneChecker(undone, done, task);
             } else if (task instanceof Event) {
+                //task has no due date
                 if (((Event) task).getEnd() == null) {
                     continue;
                 }
-                if (((Event) task).getEnd().toLocalDate().equals(dueDate)) {
-                    if (task.getDone() == 0) {
-                        undone.add(new IndexTaskPair(list.indexOf(task), task));
-                    } else {
-                        done.add(new IndexTaskPair(list.indexOf(task), task));
-                    }
+                //due date does not match input
+                if (!((Event) task).getEnd().toLocalDate().equals(dueDate)) {
+                    continue;
                 }
+                //sort task to Done and Undone list
+                doneChecker(undone, done, task);
+            } else {
+                assert false : task.display();
             }
         }
 
         if (undone.isEmpty() && done.isEmpty()) {
             return "There is no task due on " + dueDate + "!";
+        }
+        StringBuilder sb = new StringBuilder();
+
+        System.out.println("Here are the tasks that are due on " + dueDate + ":");
+        System.out.println("Undone:");
+        sb.append("Here are the tasks that are due on ").append(dueDate).append(":\n");
+        sb.append("Undone:\n");
+
+        for (IndexTaskPair pair : undone) {
+            System.out.println(pair.indexTaskPairDisplay());
+            sb.append(pair.indexTaskPairDisplay()).append("\n");
+        }
+
+        System.out.println("\n" + "Done:");
+        sb.append("\nDone:\n");
+
+        for (IndexTaskPair pair : done) {
+            sb.append(pair.indexTaskPairDisplay()).append("\n");
+        }
+
+        return sb.toString();
+    }
+
+    /**
+     * Categorizes a task as either undone or done and adds it to the corresponding list.
+     * <p>
+     * If the task is not completed, it is added to the {@code undone} list.
+     * If the task is completed, it is added to the {@code done} list.
+     * If the task has an invalid done value, an assertion error is thrown.
+     * </p>
+     *
+     * @param undone The list of undone tasks.
+     * @param done   The list of completed tasks.
+     * @param task   The task to be categorized.
+     */
+    private void doneChecker(ArrayList<IndexTaskPair> undone, ArrayList<IndexTaskPair> done, Task task) {
+        if (task.getDone() == 0) {
+            undone.add(new IndexTaskPair(list.indexOf(task), task));
+        } else if (task.getDone() == 1) {
+            done.add(new IndexTaskPair(list.indexOf(task), task));
         } else {
-            StringBuilder sb = new StringBuilder();
-
-            System.out.println("Here are the tasks that are due on " + dueDate + ":");
-            System.out.println("Undone:");
-            sb.append("Here are the tasks that are due on ").append(dueDate).append(":\n");
-            sb.append("Undone:\n");
-
-            for (IndexTaskPair pair : undone) {
-                System.out.println(pair.indexTaskPairDisplay());
-                sb.append(pair.indexTaskPairDisplay()).append("\n");
-            }
-
-            System.out.println("\n" + "Done:");
-            sb.append("\nDone:\n");
-
-            for (IndexTaskPair pair : done) {
-                sb.append(pair.indexTaskPairDisplay()).append("\n");
-            }
-
-            return sb.toString();
+            assert false : "Done value for " + task.display() + " is invalid";
         }
     }
 
