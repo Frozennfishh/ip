@@ -31,20 +31,20 @@ public class Parser {
         String[] temp = s.split(" ", 2);
         String command = temp[0];
         String input = temp.length > 1 ? temp[1] : null;
-        switch (command) {
-        case "bye": return new ExitCommand(input);
-        case "list": return new ListCommand(input);
-        case "clear": return new ClearCommand(input);
-        case "mark": return new MarkCommand(input);
-        case "unmark": return new UnmarkCommand(input);
-        case "todo": return new TodoCommand(input);
-        case "deadline": return new DeadlineCommand(input);
-        case "event": return new EventCommand(input);
-        case "delete": return new DeleteCommand(input);
-        case "due": return new DueCommand(input);
-        case "find" : return new FindCommand(input);
-        default: return new UnknownCommand(input);
-        }
+        return switch (command) {
+        case "bye" -> new ExitCommand(input);
+        case "list" -> new ListCommand(input);
+        case "clear" -> new ClearCommand(input);
+        case "mark" -> new MarkCommand(input);
+        case "unmark" -> new UnmarkCommand(input);
+        case "todo" -> new TodoCommand(input);
+        case "deadline" -> new DeadlineCommand(input);
+        case "event" -> new EventCommand(input);
+        case "delete" -> new DeleteCommand(input);
+        case "due" -> new DueCommand(input);
+        case "find" -> new FindCommand(input);
+        default -> new UnknownCommand(input);
+        };
     }
 
     /**
