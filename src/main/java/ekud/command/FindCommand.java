@@ -31,6 +31,7 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        return ui.findTaskPrint(tasks.findTask(this.getInput()));
+        super.execute(tasks, ui, storage);
+        return ui.findTaskPrint(this.getTasks().findTask(this.getInput()));
     }
 }

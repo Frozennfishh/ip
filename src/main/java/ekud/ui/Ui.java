@@ -182,6 +182,7 @@ public class Ui {
      * @return A formatted string containing the matching tasks.
      */
     public String findTaskPrint(ArrayList<Task> list) {
+        assert list != null : "TaskList object was not created properly";
         if (list.isEmpty()) {
             System.out.println("No related task found in this list :( Try again!");
             return "No related task found in this list :( Try again!";

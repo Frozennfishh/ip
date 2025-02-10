@@ -48,17 +48,22 @@ public class EventCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        super.execute(tasks, ui, storage);
         if (this.getInput() == null) {
             return ui.taskNotGiven();
-        } else if (startDate == null) {
+        }
+        //no input between /to and /from in input
+        if (startDate == null) {
             System.out.println("Start date not given");
             return "Start date not given";
-        } else if (endDate == null) {
+        }
+        //no input after /from input
+        if (endDate == null) {
             System.out.println("End date not given");
             return "End date not given";
-        } else {
-            return ui.taskAdded("Event") + "\n"
-                    + tasks.add(new Event(task, startDate, endDate, 0), storage);
         }
+        assert this.getTasks() != null : "TaskList object was not created properly";
+        return ui.taskAdded("Event") + "\n"
+                + this.getTasks().add(new Event(task, startDate, endDate, 0), storage);
     }
 }
