@@ -34,15 +34,18 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        super.execute(tasks, ui, storage);
         if (this.getInput() == null) {
             return ui.taskNotGiven();
         }
+        //checks if the input index is within the range of the tasklist array
         if (Parser.isValidIndex(this.getInput(), tasks)) {
             return ui.taskDoesNotExist();
-        } else {
-            String temp = ui.markUndone(tasks, Integer.parseInt(this.getInput()) - 1);
-            storage.saveToFile(tasks);
-            return temp;
         }
+        assert this.getTasks() != null : "TaskList object was not created properly";
+        assert this.getStorage() != null : "Storage file does not exist";
+        String temp = ui.markUndone(tasks, Integer.parseInt(this.getInput()) - 1);
+        storage.saveToFile(tasks);
+        return temp;
     }
 }

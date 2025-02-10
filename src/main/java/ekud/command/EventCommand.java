@@ -63,7 +63,8 @@ public class EventCommand extends Command {
             return "End date not given";
         }
         assert this.getTasks() != null : "TaskList object was not created properly";
+        assert this.getStorage() != null : "Storage file does not exist";
         return ui.taskAdded("Event") + "\n"
-                + this.getTasks().add(new Event(task, startDate, endDate, 0), storage);
+                + this.getTasks().add(new Event(task, startDate, endDate, 0), this.getStorage());
     }
 }

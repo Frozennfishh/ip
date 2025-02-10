@@ -42,6 +42,8 @@ public class DeleteCommand extends Command {
             return ui.taskDoesNotExist();
         }
         assert this.getTasks() != null : "TaskList object was not created properly";
+        assert this.getStorage() != null : "Storage file does not exist";
+        assert this.getTasks() != null : "TaskList object was not created properly";
         return ui.delete(tasks, Integer.parseInt(this.getInput()) - 1, storage);
     }
 }

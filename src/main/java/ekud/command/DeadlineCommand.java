@@ -53,6 +53,7 @@ public class DeadlineCommand extends Command {
             return "Deadline not given! Try again!";
         }
         assert this.getTasks() != null : "TaskList object was not created properly";
+        assert this.getStorage() != null : "Storage file does not exist";
         return ui.taskAdded("Deadline") + "\n"
                 + this.getTasks().add(new Deadline(task, dueDate, 0), this.getStorage());
     }
