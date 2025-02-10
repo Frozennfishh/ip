@@ -3,18 +3,7 @@ package ekud.parser;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import ekud.command.ClearCommand;
-import ekud.command.Command;
-import ekud.command.DeadlineCommand;
-import ekud.command.DeleteCommand;
-import ekud.command.DueCommand;
-import ekud.command.EventCommand;
-import ekud.command.ExitCommand;
-import ekud.command.ListCommand;
-import ekud.command.MarkCommand;
-import ekud.command.TodoCommand;
-import ekud.command.UnknownCommand;
-import ekud.command.UnmarkCommand;
+import ekud.command.*;
 import ekud.memory.TaskList;
 
 /**
@@ -53,6 +42,7 @@ public class Parser {
         case "event": return new EventCommand(input);
         case "delete": return new DeleteCommand(input);
         case "due": return new DueCommand(input);
+        case "find" : return new FindCommand(input);
         default: return new UnknownCommand(input);
         }
     }
