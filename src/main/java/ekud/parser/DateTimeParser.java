@@ -47,6 +47,7 @@ public class DateTimeParser {
      * @return A {@code LocalDateTime} object if parsing is successful, otherwise {@code null}.
      */
     public static LocalDateTime parseDateTime(String input) {
+        assert DATE_TIME_PATTERNS != null : "Errpr in loading date time list";
         for (String pattern : DATE_TIME_PATTERNS) {
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
@@ -73,6 +74,7 @@ public class DateTimeParser {
      *         otherwise {@code null}.
      */
     public static LocalDateTime parseDate(String input) {
+        assert DATE_PATTERNS != null : "Errpr in loading date list";
         for (String pattern : DATE_PATTERNS) {
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);

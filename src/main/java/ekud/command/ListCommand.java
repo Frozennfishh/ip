@@ -33,6 +33,8 @@ public class ListCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         super.execute(tasks, ui, storage);
         assert this.getTasks() != null : "TaskList object was not created properly";
+        assert ui != null : "UI object does not exist";
+        assert storage != null : "Storage object does not exist";
         if (this.getTasks().isEmpty()) {
             return ui.listEmpty();
         }

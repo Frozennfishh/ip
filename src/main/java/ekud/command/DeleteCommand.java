@@ -34,6 +34,9 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         super.execute(tasks, ui, storage);
+        assert tasks != null : "Tasks object does not exist";
+        assert ui != null : "UI object does not exist";
+        assert storage != null : "Storage object does not exist";
         if (this.getInput() == null) {
             return ui.taskNotGiven();
         }
