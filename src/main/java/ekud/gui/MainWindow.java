@@ -1,5 +1,7 @@
 package ekud.gui;
 
+import java.util.Objects;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -27,8 +29,10 @@ public class MainWindow extends AnchorPane {
 
     private Ekud ekud;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/cat_right.png"));
-    private Image ekudImage = new Image(this.getClass().getResourceAsStream("/images/cat_left.png"));
+    private Image userImage = new Image(Objects
+            .requireNonNull(this.getClass().getResourceAsStream("/images/cat_right.png")));
+    private Image ekudImage = new Image(Objects
+            .requireNonNull(this.getClass().getResourceAsStream("/images/cat_left.png")));
 
     /**
      * Initializes the GUI components.

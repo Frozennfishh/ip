@@ -44,18 +44,17 @@ public class Ekud {
      * Displays the introduction message, continuously reads user input,
      * processes commands, and terminates when the exit command is issued.
      * </p>
-     *
-     * @return A farewell message when the program terminates.
      */
-    public String run() {
+    public void run() {
         ui.intro();
         boolean isExit = false;
         while (!isExit) {
             Command c = Parser.parse(ui.readLine());
             commandType = c.getClass().getSimpleName();
-            return c.execute(taskList, ui, storage);
+            c.execute(taskList, ui, storage);
+            return;
         }
-        return ui.goodbye();
+        ui.goodbye();
     }
 
     /**
