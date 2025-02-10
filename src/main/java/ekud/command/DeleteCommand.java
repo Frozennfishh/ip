@@ -33,14 +33,15 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        super.execute(tasks, ui, storage);
         if (this.getInput() == null) {
             return ui.taskNotGiven();
-        } else {
-            if (Parser.isValidIndex(this.getInput(), tasks)) {
-                return ui.taskDoesNotExist();
-            } else {
-                return ui.delete(tasks, Integer.parseInt(this.getInput()) - 1, storage);
-            }
         }
+        //checks if the input index is within the range of the tasklist array
+        if (Parser.isValidIndex(this.getInput(), tasks)) {
+            return ui.taskDoesNotExist();
+        }
+        assert this.getTasks() != null : "TaskList object was not created properly";
+        return ui.delete(tasks, Integer.parseInt(this.getInput()) - 1, storage);
     }
 }

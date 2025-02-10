@@ -29,9 +29,12 @@ public class ClearCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        super.execute(tasks, ui, storage);
         System.out.println("Okies, clearing list!");
+        assert this.getTasks() != null : "TaskList object was not created properly";
         tasks.clear();
         storage.saveToFile(tasks);
+        assert !this.getTasks().isEmpty() : "List not cleared properly";
         return "Okies, clearing list!";
     }
 }
