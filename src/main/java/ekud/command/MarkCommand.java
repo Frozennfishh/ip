@@ -42,7 +42,7 @@ public class MarkCommand extends Command {
             return ui.taskNotGiven();
         }
         //checks if the input index is within the range of the tasklist array
-        if (Parser.isValidIndex(this.getInput(), tasks)) {
+        if (!Parser.isValidIndex(this.getInput(), tasks)) {
             return ui.taskDoesNotExist();
         }
         assert this.getTasks() != null : "TaskList object was not created properly";

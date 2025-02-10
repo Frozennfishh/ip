@@ -9,12 +9,12 @@ import org.junit.jupiter.api.Test;
 public class ParserTest {
     @Test
     public void isNotIntegerTest1() {
-        assertEquals(true, Parser.isNotInteger("hi", 10));
+        assertEquals(false, Parser.isInteger("hi"));
     }
 
     @Test
     public void isNotIntegerTest2() {
-        assertEquals(false, Parser.isNotInteger("1", 10));
+        assertEquals(true, Parser.isInteger("1"));
     }
 
     @Test
