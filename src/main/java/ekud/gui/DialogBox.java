@@ -86,7 +86,7 @@ public class DialogBox extends HBox {
         case "DeleteCommand":
             dialog.getStyleClass().add("delete-label");
             break;
-        case "DueCommand", "FindCommand", "ListCommand":
+        case "DueCommand", "FindCommand", "ListCommand", "FindFreeTimesCommand":
             dialog.getStyleClass().add("list-label");
             break;
         case "MarkCommand":

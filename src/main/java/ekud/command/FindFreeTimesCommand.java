@@ -20,7 +20,7 @@ public class FindFreeTimesCommand extends Command {
     private LocalDateTime current;
     public FindFreeTimesCommand(String input) {
         super(input);
-        System.out.println(input);
+        //input in form "/for HH:MM"
         if (this.getInput() != null) {
             String[] temp = input.split("/for ", 2);
             String[] temp2 = temp.length > 1 ? temp[1].split(":", 2) : null;
@@ -51,22 +51,22 @@ public class FindFreeTimesCommand extends Command {
         LocalDateTime startFreeTime = current;
         LocalDateTime endFreeTime = null;
         for (Event event : eventList) {
+            if (event.getDone() == 1) {
+                continue;
+            }
             if (event.getStart().isBefore(startFreeTime)) {
                 startFreeTime = event.getEnd();
                 endFreeTime = null;
                 continue;
-            } else {
-                endFreeTime = event.getStart();
-                if (startFreeTime.until(endFreeTime.plusMinutes(1), ChronoUnit.MINUTES) >= minutes) {
-                    System.out.println("End Time:" + endFreeTime);
-                    break;
-                } else {
-                    startFreeTime = event.getEnd();
-                    endFreeTime = null;
-                }
             }
-            System.out.println(startFreeTime);
-            System.out.println(endFreeTime);
+            endFreeTime = event.getStart();
+            if (startFreeTime.until(endFreeTime.plusMinutes(1), ChronoUnit.MINUTES) >= minutes) {
+                System.out.println("End Time:" + endFreeTime);
+                break;
+            } else {
+                startFreeTime = event.getEnd();
+                endFreeTime = null;
+            }
         }
         if (startFreeTime == current && endFreeTime == null) {
             return "You're free all the way to infinity!";

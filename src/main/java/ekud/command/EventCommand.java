@@ -26,9 +26,7 @@ public class EventCommand extends Command {
      */
     public EventCommand(String input) {
         super(input);
-        if (this.getInput() == null) {
-            //ui.taskNotGiven();
-        } else {
+        if (this.getInput() != null) {
             String[] temp = input.split(" /from ", 2);
             this.task = temp[0];
             String[] temp2 = temp.length > 1 ? temp[1].split(" /to ", 2) : null;
