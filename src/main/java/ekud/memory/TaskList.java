@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import ekud.command.EventCommand;
 import ekud.tasks.Deadline;
 import ekud.tasks.Event;
 import ekud.tasks.Task;
