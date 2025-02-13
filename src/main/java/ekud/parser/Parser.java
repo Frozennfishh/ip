@@ -43,6 +43,8 @@ public class Parser {
         case "delete" -> new DeleteCommand(input);
         case "due" -> new DueCommand(input);
         case "find" -> new FindCommand(input);
+        case "freeTime" -> new FindFreeTimesCommand(input);
+        case "freeTimeOn" -> new FindFreeTimesOnCommand(input);
         default -> new UnknownCommand(input);
         };
     }
@@ -59,38 +61,29 @@ public class Parser {
      */
     public static boolean isValidIndex(String s, TaskList t) {
         assert !t.isEmpty() : "Task List not given";
-        return isNotInteger(s, 10) || Integer.parseInt(s) > t.size();
+        return isInteger(s) && Integer.parseInt(s) <= t.size();
     }
 
     /**
-     * Determines whether a given string is not a valid integer in the specified radix.
+     * Checks if a given string can be parsed as an integer.
      * <p>
-     * This method verifies that the string consists of valid numerical characters.
-     * It also accounts for negative numbers.
+     * This method attempts to parse the string using {@code Integer.parseInt()}.
+     * If parsing succeeds, it returns {@code true}; otherwise, it catches
+     * a {@code NumberFormatException} and returns {@code false}.
      * </p>
      *
-     * @param s The string to check.
-     * @param radix The numerical base (e.g., 10 for decimal).
-     * @return {@code true} if the string is not a valid integer, otherwise {@code false}.
+     * @param str The string to check.
+     * @return {@code true} if the string can be parsed as an integer, otherwise {@code false}.
      */
-    public static boolean isNotInteger(String s, int radix) {
-        if (s.isEmpty()) {
+    public static boolean isInteger(String str) {
+        try {
+            Integer.parseInt(str);
             return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
-        for (int i = 0; i < s.length(); i++) {
-            if (i == 0 && s.charAt(i) == '-') {
-                if (s.length() == 1) {
-                    return true;
-                } else {
-                    continue;
-                }
-            }
-            if (Character.digit(s.charAt(i), radix) < 0) {
-                return true;
-            }
-        }
-        return false;
     }
+
 
     /**
      * Parses a date string and converts it into a {@code LocalDate} object.
@@ -113,4 +106,5 @@ public class Parser {
             return null;
         }
     }
+
 }

@@ -91,6 +91,14 @@ public class Event extends Task {
     }
 
     /**
+     * Retrieves the parsed start time as a {@code LocalDateTime} object.
+     *
+     * @return The start time as a {@code LocalDateTime}, or {@code null} if parsing failed.
+     */
+    public LocalDateTime getStart() {
+        return this.start;
+    }
+    /**
      * Retrieves the parsed end time as a {@code LocalDateTime} object.
      *
      * @return The end time as a {@code LocalDateTime}, or {@code null} if parsing failed.
