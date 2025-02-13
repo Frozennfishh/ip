@@ -1,6 +1,12 @@
 package ekud.command;
 
-import ekud.memory.IndexTaskPair;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Comparator;
+
 import ekud.memory.Storage;
 import ekud.memory.TaskList;
 import ekud.parser.Parser;
@@ -8,23 +14,26 @@ import ekud.tasks.Event;
 import ekud.ui.Ui;
 import javafx.util.Pair;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.stream.Stream;
-
+/**
+ * The FindFreeTimesOnCommand class is responsible for finding available time slots
+ * on a specified date based on a user's scheduled events. It checks for gaps between
+ * existing events and determines if there is enough continuous free time to accommodate
+ * a requested duration.
+ */
 public class FindFreeTimesOnCommand extends Command {
-    private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+    private final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private LocalDate date;
     private String hoursString;
     private String minuteString;
     private int minutes = 0;
     private LocalDateTime current;
 
+    /**
+     * Constructs a FindFreeTimesOnCommand object, parsing the input string for the target date
+     * and requested duration.
+     *
+     * @param input The input string in the format "INPUT_DATE /for HH:MM".
+     */
     public FindFreeTimesOnCommand(String input) {
         super(input);
         //input in format "INPUT_DATE /for HH:MM"
@@ -42,6 +51,14 @@ public class FindFreeTimesOnCommand extends Command {
         current = LocalDateTime.now();
     }
 
+    /**
+     * Executes the command to find available time slots on the specified date.
+     *
+     * @param tasks The list of tasks containing scheduled events.
+     * @param ui The user interface instance for displaying messages.
+     * @param storage The storage instance for managing saved tasks.
+     * @return A message containing available time slots or an error message if no suitable slot is found.
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         super.execute(tasks, ui, storage);
@@ -77,15 +94,36 @@ public class FindFreeTimesOnCommand extends Command {
         }
     }
 
+    /**
+     * Determines the start time for free time calculations.
+     *
+     * @param current The current date and time.
+     * @param date The target date for checking availability.
+     * @return The starting LocalDateTime for the given date.
+     */
     private LocalDateTime getStartTime(LocalDateTime current, LocalDate date) {
         return current.toLocalDate().equals(date)
                 ? LocalDateTime.now() : date.atTime(LocalTime.MIDNIGHT);
     }
 
+    /**
+     * Determines the end time for free time calculations.
+     *
+     * @param t The starting time reference.
+     * @return The end time as midnight of the following day.
+     */
     private LocalDateTime getEndTime(LocalDateTime t) {
         return t.plusDays(1).toLocalDate().atTime(LocalTime.MIDNIGHT);
     }
 
+    /**
+     * Filters events that overlap with the specified time range.
+     *
+     * @param start The start of the free period.
+     * @param end The end of the free period.
+     * @param list The list of scheduled events.
+     * @return A list of events that conflict with the free period.
+     */
     private ArrayList<Event> involvedEvents(LocalDateTime start, LocalDateTime end, ArrayList<Event> list) {
         assert list != null : "List does not exist!";
         ArrayList<Event> res = new ArrayList<>();
@@ -138,7 +176,7 @@ public class FindFreeTimesOnCommand extends Command {
             //If it's an end marker
             if (marker.getKey() == 0) {
                 count--;
-                assert count >= 0: "Something went wrong with stack count";
+                assert count >= 0 : "Something went wrong with stack count";
                 if (count == 0) {
                     freeStartMarker = marker.getValue();
                 }
