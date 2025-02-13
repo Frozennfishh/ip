@@ -8,27 +8,26 @@ import ekud.memory.TaskList;
 import ekud.tasks.Task;
 
 /**
- * Handles user interaction for the ekud.gui.Ekud task manager.
+ * Handles user interaction for the Ekud task manager.
  * <p>
- * The {@code Ui} class is responsible for reading user input, displaying messages,
+ * This class is responsible for reading user input, displaying messages,
  * and providing feedback based on user commands.
  * </p>
  */
-
 public class Ui {
     private Scanner scanner;
 
     /**
-     * Constructs a {@code Ui} object and initializes a {@code Scanner} for user input.
+     * Constructs a {@code Ui} object and initializes a scanner for reading user input.
      */
     public Ui() {
         scanner = new Scanner(System.in);
     }
 
     /**
-     * Reads a line of user input and splits it into a command and optional arguments.
+     * Reads a line of user input.
      *
-     * @return A string array where the first element is the command and the second (if present) is the argument.
+     * @return The user's input as a string.
      */
     public String readLine() {
         return scanner.nextLine();
@@ -36,6 +35,8 @@ public class Ui {
 
     /**
      * Displays a message indicating that the task list is empty.
+     *
+     * @return A message stating that the list is empty.
      */
     public String listEmpty() {
         System.out.println("List is empty! Yippee!");
@@ -66,7 +67,9 @@ public class Ui {
     }
 
     /**
-     * Displays a goodbye message and exits the program.
+     * Displays a goodbye message and terminates the program.
+     *
+     * @return A farewell message.
      */
     public String goodbye() {
         System.out.println("Bye. Hope to see you again soon!\n");
@@ -76,7 +79,7 @@ public class Ui {
     }
 
     /**
-     * Displays a visual separator to improve readability in the console.
+     * Prints a visual separator for readability in the console.
      */
     public static void buffer() {
         System.out.println("   /\\_/\\\n"
@@ -87,6 +90,8 @@ public class Ui {
 
     /**
      * Displays an error message when a task does not exist.
+     *
+     * @return An error message indicating that the task was not found.
      */
     public String taskDoesNotExist() {
         System.out.println("This task does not exist :( Try again!");
@@ -95,16 +100,19 @@ public class Ui {
 
     /**
      * Displays an error message when no task input is provided.
+     *
+     * @return An error message prompting the user to enter a task.
      */
     public String taskNotGiven() {
         return "No task given, try again!";
     }
 
     /**
-     * Marks a task as completed, displays a confirmation message, and updates the task list.
+     * Marks a task as completed and displays a confirmation message.
      *
-     * @param tasks The {@code TaskList} containing the task.
-     * @param index The index of the task to mark as completed.
+     * @param tasks The task list containing the task.
+     * @param index The index of the task to be marked as completed.
+     * @return A confirmation message indicating the task has been marked as done.
      */
     public String markDone(TaskList tasks, int index) {
         tasks.get(index).setDone();
@@ -116,10 +124,11 @@ public class Ui {
     }
 
     /**
-     * Marks a task as not completed, displays a confirmation message, and updates the task list.
+     * Marks a task as not completed and displays a confirmation message.
      *
-     * @param tasks The {@code TaskList} containing the task.
-     * @param index The index of the task to mark as not completed.
+     * @param tasks The task list containing the task.
+     * @param index The index of the task to be marked as not completed.
+     * @return A confirmation message indicating the task has been marked as undone.
      */
     public String markUndone(TaskList tasks, int index) {
         tasks.get(index).setUndone();
@@ -134,6 +143,7 @@ public class Ui {
      * Displays a confirmation message when a task is added.
      *
      * @param s The type of task that was added (e.g., "Todo", "Deadline", "Event").
+     * @return A confirmation message.
      */
     public String taskAdded(String s) {
         System.out.println("Gotcha, " + s + " task added!");
@@ -143,9 +153,10 @@ public class Ui {
     /**
      * Removes a task from the list and displays a confirmation message.
      *
-     * @param tasks   The {@code TaskList} containing the task.
+     * @param tasks   The task list containing the task.
      * @param index   The index of the task to be deleted.
-     * @param storage The {@code Storage} instance to update the saved task list.
+     * @param storage The storage instance to update the saved task list.
+     * @return A confirmation message indicating the task has been deleted.
      */
     public String delete(TaskList tasks, int index, Storage storage) {
         System.out.println("Omgie, removing this task from the list!");
@@ -157,21 +168,21 @@ public class Ui {
 
     /**
      * Displays an error message for unrecognized commands.
+     *
+     * @return An error message indicating the command is unknown.
      */
     public String showUnknown() {
         return "I don't understand ;-; Try again!";
     }
 
     /**
-     * Prints a list of tasks that match a given search criteria.
-     * <p>
-     * If no matching tasks are found, an appropriate message is displayed.
-     * Otherwise, the method prints all matching tasks in a numbered format.
-     * </p>
+     * Prints and returns a list of tasks that match a given search criteria.
      *
-     * @param list An {@code ArrayList<Task>} containing the matching tasks.
+     * @param list A list of matching tasks.
+     * @return A formatted string containing the matching tasks.
      */
     public String findTaskPrint(ArrayList<Task> list) {
+        assert list != null : "TaskList object was not created properly";
         if (list.isEmpty()) {
             System.out.println("No related task found in this list :( Try again!");
             return "No related task found in this list :( Try again!";
@@ -190,6 +201,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays an error message when an invalid date is given.
+     *
+     * @return An error message indicating that the date is invalid.
+     */
     public String invalidDateGiven() {
         return "Invalid date given, try again!";
     }

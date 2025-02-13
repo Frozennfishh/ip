@@ -3,18 +3,23 @@ package ekud.memory;
 import ekud.tasks.Task;
 
 /**
- * Represents a pair of an index and a task.
- * This class is used to associate a task with its position in a list.
+ * Represents a pairing of an index and a task.
+ * <p>
+ * This class is used to associate a task with its position in a list,
+ * maintaining a 1-based index for user-friendly display.
+ * </p>
  */
 public class IndexTaskPair {
-    private int index;
+    private final int index;
     private final Task task;
 
     /**
-     * Constructs an {@code IndexTaskPair} with a given index and task.
-     * The index is incremented by 1 to ensure it is **1-based**.
+     * Constructs an {@code IndexTaskPair} with the specified index and task.
+     * <p>
+     * The index is incremented by 1 to follow a 1-based numbering convention.
+     * </p>
      *
-     * @param index The position of the task in a list (0-based index, incremented by 1).
+     * @param index The zero-based position of the task in a list (converted to 1-based).
      * @param task  The task associated with this index.
      */
     public IndexTaskPair(int index, Task task) {
@@ -23,8 +28,12 @@ public class IndexTaskPair {
     }
 
     /**
-     * Displays the task with its assigned index.
-     * Prints the task in the format: {@code "<index>. <task display string>"}.
+     * Returns a formatted string representing the task and its assigned index.
+     * <p>
+     * The output format is: {@code "<index>. <task display string>"}.
+     * </p>
+     *
+     * @return A string representation of the indexed task.
      */
     public String indexTaskPairDisplay() {
         return index + ". " + task.display();
