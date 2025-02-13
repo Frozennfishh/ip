@@ -31,20 +31,23 @@ public class ListCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        if (tasks.isEmpty()) {
+        super.execute(tasks, ui, storage);
+        assert this.getTasks() != null : "TaskList object was not created properly";
+        assert ui != null : "UI object does not exist";
+        assert storage != null : "Storage object does not exist";
+        if (this.getTasks().isEmpty()) {
             return ui.listEmpty();
-        } else {
-            StringBuilder sb = new StringBuilder();
-
-            System.out.println("Here are the tasks in your list:");
-            sb.append("Here are the tasks in your list:\n");
-
-            for (int i = 0; i < tasks.size(); i++) {
-                System.out.println(i + 1 + "." + tasks.get(i).display());
-                sb.append(i + 1).append(". ").append(tasks.get(i).display()).append("\n");
-            }
-
-            return sb.toString();
         }
+        StringBuilder sb = new StringBuilder();
+
+        System.out.println("Here are the tasks in your list:");
+        sb.append("Here are the tasks in your list:\n");
+
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println(i + 1 + "." + tasks.get(i).display());
+            sb.append(i + 1).append(". ").append(tasks.get(i).display()).append("\n");
+        }
+
+        return sb.toString();
     }
 }

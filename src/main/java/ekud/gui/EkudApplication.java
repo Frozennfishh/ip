@@ -46,7 +46,7 @@ public class EkudApplication extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
-            fxmlLoader.<MainWindow>getController().setEkud(ekud);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setEkud(ekud);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

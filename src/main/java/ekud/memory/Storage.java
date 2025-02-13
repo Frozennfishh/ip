@@ -16,7 +16,7 @@ import ekud.tasks.Todo;
  * Handles loading and saving task data to a file for persistent storage.
  */
 public class Storage {
-    private File file;
+    private final File file;
 
     /**
      * Constructs a {@code Storage} object and initializes the storage file.
@@ -72,6 +72,7 @@ public class Storage {
                 break;
             }
             default:
+                assert false : line[0];
                 break;
             }
             i++;
@@ -99,6 +100,8 @@ public class Storage {
                 } else if (task instanceof Event e) {
                     writer.write("E|" + e.getName() + "|" + e.getStart_string() + "|"
                             + e.getEnd_string() + "|" + e.getDone() + "\n");
+                } else {
+                    assert false : "Invalid data should not be written into file";
                 }
             }
         } catch (IOException e) {

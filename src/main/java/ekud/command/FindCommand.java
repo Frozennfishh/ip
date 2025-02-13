@@ -4,10 +4,11 @@ import ekud.memory.Storage;
 import ekud.memory.TaskList;
 import ekud.ui.Ui;
 
+
 /**
  * Represents a command to search for tasks containing a specific keyword.
  */
-public class FindCommand extends Command{
+public class FindCommand extends Command {
     /**
      * Constructs a {@code FindCommand} with the given search keyword.
      *
@@ -30,6 +31,9 @@ public class FindCommand extends Command{
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        super.execute(tasks, ui, storage);
+        assert tasks != null : "Tasks object does not exist";
+        assert ui != null : "UI object does not exist";
         return ui.findTaskPrint(tasks.findTask(this.getInput()));
     }
 }

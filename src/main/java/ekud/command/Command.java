@@ -1,13 +1,7 @@
 package ekud.command;
 
-import java.time.LocalDate;
-
 import ekud.memory.Storage;
 import ekud.memory.TaskList;
-import ekud.parser.Parser;
-import ekud.tasks.Deadline;
-import ekud.tasks.Event;
-import ekud.tasks.Todo;
 import ekud.ui.Ui;
 
 /**

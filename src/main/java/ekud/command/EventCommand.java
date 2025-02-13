@@ -1,17 +1,20 @@
 package ekud.command;
 
+import java.util.ArrayList;
+
 import ekud.memory.Storage;
 import ekud.memory.TaskList;
 import ekud.tasks.Event;
+import ekud.tasks.Task;
 import ekud.ui.Ui;
 
 /**
  * Represents a command to add an event task to the task list.
  */
-public class EventCommand extends Command{
-    String task;
-    String startDate;
-    String endDate;
+public class EventCommand extends Command {
+    private String task;
+    private String startDate;
+    private String endDate;
 
     /**
      * Constructs an {@code EventCommand} with the given user input.
@@ -23,14 +26,12 @@ public class EventCommand extends Command{
      */
     public EventCommand(String input) {
         super(input);
-        if (this.getInput() == null) {
-            //ui.taskNotGiven();
-        } else {
+        if (this.getInput() != null) {
             String[] temp = input.split(" /from ", 2);
             this.task = temp[0];
             String[] temp2 = temp.length > 1 ? temp[1].split(" /to ", 2) : null;
-            this.startDate = temp2 == null ? null : temp2[0];
-            this.endDate = temp2 != null && temp2.length > 1 ? temp[1] : null;
+            this.startDate = temp2 == null || temp2.length <= 1 ? null : temp2[0];
+            this.endDate = temp2 != null && temp2.length > 1 ? temp2[1] : null;
         }
     }
 
@@ -48,17 +49,26 @@ public class EventCommand extends Command{
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        super.execute(tasks, ui, storage);
+        assert tasks != null : "Tasks object does not exist";
+        assert ui != null : "UI object does not exist";
+        assert storage != null : "Storage object does not exist";
         if (this.getInput() == null) {
             return ui.taskNotGiven();
-        } else if (startDate == null) {
+        }
+        //no input between /to and /from in input
+        if (startDate == null) {
             System.out.println("Start date not given");
             return "Start date not given";
-        } else if (endDate == null) {
+        }
+        //no input after /from input
+        if (endDate == null) {
             System.out.println("End date not given");
             return "End date not given";
-        } else {
-            return ui.taskAdded("Event") + "\n" +
-                    tasks.add(new Event(task, startDate, endDate, 0), storage);
         }
+        assert this.getTasks() != null : "TaskList object was not created properly";
+        assert this.getStorage() != null : "Storage file does not exist";
+        return ui.taskAdded("Event") + "\n"
+                + this.getTasks().add(new Event(task, startDate, endDate, 0), this.getStorage());
     }
 }

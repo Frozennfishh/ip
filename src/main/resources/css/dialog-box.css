@@ -11,16 +11,32 @@
     -fx-border-radius: 1em 1em 1em 0;
 }
 
-.add-label {
-    -fx-background-color: yellow;
+.clear-label {
+    -fx-background-color: floralwhite;
 }
 
-.marked-label {
-    -fx-background-color: palegreen;
+.add-label {
+    -fx-background-color: lightgreen;
 }
 
 .delete-label {
-    -fx-background-color: lightpink;
+    -fx-background-color: lightcoral;
+}
+
+.list-label {
+    -fx-background-color: lightsteelblue;
+}
+
+.mark-label {
+    -fx-background-color: linear-gradient(to bottom right, yellowgreen, forestgreen );
+}
+
+.unmark-label {
+    -fx-background-color: linear-gradient(to bottom right, yellowgreen, indianred );
+}
+
+.unknown-label {
+    -fx-background-color: yellow;
 }
 
 #displayPicture {

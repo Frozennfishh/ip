@@ -7,7 +7,8 @@ import ekud.ui.Ui;
 /**
  * Represents a command that clears all tasks from the task list.
  */
-public class ClearCommand extends Command{
+public class ClearCommand extends Command {
+
     /**
      * Constructs a ClearCommand object.
      *
@@ -28,9 +29,14 @@ public class ClearCommand extends Command{
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        super.execute(tasks, ui, storage);
+        assert tasks != null : "Tasks object does not exist";
+        assert storage != null : "Storage object does not exist";
         System.out.println("Okies, clearing list!");
+        assert this.getTasks() != null : "TaskList object was not created properly";
         tasks.clear();
         storage.saveToFile(tasks);
+        assert !this.getTasks().isEmpty() : "List not cleared properly";
         return "Okies, clearing list!";
     }
 }

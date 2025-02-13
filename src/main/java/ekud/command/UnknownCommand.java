@@ -7,7 +7,7 @@ import ekud.ui.Ui;
 /**
  * Represents an unknown or invalid command entered by the user.
  */
-public class UnknownCommand extends Command{
+public class UnknownCommand extends Command {
     /**
      * Constructs an {@code UnknownCommand} with the given user input.
      *
@@ -30,6 +30,9 @@ public class UnknownCommand extends Command{
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "Tasks object does not exist";
+        assert ui != null : "UI object does not exist";
+        assert storage != null : "Storage object does not exist";
         super.execute(tasks, ui, storage);
         return ui.showUnknown();
     }

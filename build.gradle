@@ -55,8 +55,6 @@ checkstyle {
 
 checkstyle {
     toolVersion = '10.2'
-
-
 }
 
 shadowJar {
