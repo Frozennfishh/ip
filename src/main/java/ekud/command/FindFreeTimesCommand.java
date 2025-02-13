@@ -32,9 +32,6 @@ public class FindFreeTimesCommand extends Command {
                     ? Integer.parseInt(minuteString) : 0;
         }
         current = LocalDateTime.now();
-        System.out.println(hoursString);
-        System.out.println(minuteString);
-        System.out.println(minutes);
     }
 
     @Override
@@ -51,9 +48,12 @@ public class FindFreeTimesCommand extends Command {
         LocalDateTime startFreeTime = current;
         LocalDateTime endFreeTime = null;
         for (Event event : eventList) {
+            //If event has been marked done, move to next
             if (event.getDone() == 1) {
                 continue;
             }
+            //If event start time is before the end time of previous event,
+            //Move startFreeTime to the end of current event, move to next
             if (event.getStart().isBefore(startFreeTime)) {
                 startFreeTime = event.getEnd();
                 endFreeTime = null;
@@ -68,6 +68,7 @@ public class FindFreeTimesCommand extends Command {
                 endFreeTime = null;
             }
         }
+
         if (startFreeTime == current && endFreeTime == null) {
             return "You're free all the way to infinity!";
         } else if (endFreeTime == null) {
