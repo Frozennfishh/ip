@@ -3,7 +3,21 @@ package ekud.parser;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import ekud.command.*;
+import ekud.command.ClearCommand;
+import ekud.command.Command;
+import ekud.command.DeadlineCommand;
+import ekud.command.DeleteCommand;
+import ekud.command.DueCommand;
+import ekud.command.EventCommand;
+import ekud.command.ExitCommand;
+import ekud.command.FindCommand;
+import ekud.command.FindFreeTimesCommand;
+import ekud.command.FindFreeTimesOnCommand;
+import ekud.command.ListCommand;
+import ekud.command.MarkCommand;
+import ekud.command.TodoCommand;
+import ekud.command.UnknownCommand;
+import ekud.command.UnmarkCommand;
 import ekud.memory.TaskList;
 
 /**

@@ -12,12 +12,21 @@ import ekud.parser.Parser;
 import ekud.tasks.Event;
 import ekud.ui.Ui;
 
+/**
+ * The FindFreeTimesCommand class searches for available time slots based on scheduled events.
+ */
 public class FindFreeTimesCommand extends Command {
     private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     private String hoursString;
     private String minuteString;
     private int minutes = 0;
     private LocalDateTime current;
+
+    /**
+     * Constructs a FindFreeTimesCommand instance, parsing the input to determine the required free time duration.
+     *
+     * @param input The command input in the format "/for HH:MM" specifying the required free duration.
+     */
     public FindFreeTimesCommand(String input) {
         super(input);
         //input in form "/for HH:MM"
@@ -34,6 +43,14 @@ public class FindFreeTimesCommand extends Command {
         current = LocalDateTime.now();
     }
 
+    /**
+     * Executes the command to find the next available free time slot.
+     *
+     * @param tasks   The TaskList containing scheduled events.
+     * @param ui      The user interface instance for interacting with the user.
+     * @param storage The storage system handling data persistence.
+     * @return A message indicating the next available free time slot.
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         super.execute(tasks, ui, storage);
