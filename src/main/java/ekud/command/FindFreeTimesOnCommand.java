@@ -43,10 +43,8 @@ public class FindFreeTimesOnCommand extends Command {
             String[] temp2 = temp.length > 1 ? temp[1].split(":", 2) : null;
             this.hoursString = temp2 == null || temp2.length <= 1 ? null : temp2[0];
             this.minuteString = temp2 != null && temp2.length > 1 ? temp2[1] : null;
-            this.minutes += hoursString != null && Parser.isInteger(hoursString)
-                    ? Integer.parseInt(hoursString) * 60 : 0;
-            this.minutes += minuteString != null && Parser.isInteger(minuteString)
-                    ? Integer.parseInt(minuteString) : 0;
+            this.minutes += Parser.hourStringToMinutes(hoursString);
+            this.minutes += Parser.stringToMinutes(minuteString);
         }
         current = LocalDateTime.now();
     }
@@ -72,12 +70,11 @@ public class FindFreeTimesOnCommand extends Command {
         eventList.sort(Comparator.comparing(Event::getStart));
         LocalDateTime startFreeTime = getStartTime(current, date);
         LocalDateTime endFreeTime = getEndTime(startFreeTime);
-        System.out.println(startFreeTime);
-        System.out.println(endFreeTime);
         ArrayList<Event> involvedEvents = involvedEvents(startFreeTime, endFreeTime, eventList);
         if (involvedEvents != null && involvedEvents.isEmpty()) {
             return "This day is completely free, yay!";
         }
+
         ArrayList<Pair<LocalDateTime, LocalDateTime>> markers =
                 getTimeMarkers(startFreeTime, endFreeTime, involvedEvents);
         ArrayList<Pair<LocalDateTime, LocalDateTime>> res = filterSlots(markers, minutes);
@@ -149,6 +146,14 @@ public class FindFreeTimesOnCommand extends Command {
         return res;
     }
 
+    /**
+     * Determines available time slots by identifying gaps between events.
+     *
+     * @param start The starting time of the search.
+     * @param end The ending time of the search.
+     * @param list The list of scheduled events.
+     * @return A list of available time slots.
+     */
     private ArrayList<Pair<LocalDateTime, LocalDateTime>> getTimeMarkers(LocalDateTime start,
                                                           LocalDateTime end, ArrayList<Event> list) {
         if (list == null) {
@@ -201,6 +206,13 @@ public class FindFreeTimesOnCommand extends Command {
         return res;
     }
 
+    /**
+     * Filters time slots to only include those that meet the required minimum duration.
+     *
+     * @param list The list of available time slots.
+     * @param minutes The required minimum duration in minutes.
+     * @return A filtered list of available time slots that meet the duration criteria.
+     */
     private ArrayList<Pair<LocalDateTime, LocalDateTime>> filterSlots(ArrayList<Pair<LocalDateTime,
             LocalDateTime>> list, int minutes) {
         if (list == null) {
@@ -215,7 +227,14 @@ public class FindFreeTimesOnCommand extends Command {
         return res;
     }
 
+    /**
+     * Formats a given time slot for display.
+     *
+     * @param slot A pair representing the start and end time of a free slot.
+     * @return A formatted string representing the time range of the slot.
+     */
     private String timeDisplay(Pair<LocalDateTime, LocalDateTime> slot) {
+        assert slot != null : "Pair in array is empty!";
         return slot.getKey().toLocalTime().format(timeFormatter)
                 + " to " + slot.getValue().toLocalTime().format(timeFormatter);
     }

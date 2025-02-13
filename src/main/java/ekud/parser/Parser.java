@@ -121,4 +121,25 @@ public class Parser {
         }
     }
 
+    /**
+     * Converts a string representing minutes into an integer value.
+     *
+     * @param minutes A string representing the number of minutes.
+     * @return The integer representation of minutes, or 0 if the string is invalid.
+     */
+    public static int stringToMinutes(String minutes) {
+        return minutes != null && Parser.isInteger(minutes)
+                ? Integer.parseInt(minutes) : 0;
+    }
+
+    /**
+     * Converts a string representing hours into an integer value of minutes.
+     *
+     * @param hours A string representing the number of hours.
+     * @return The integer representation of hours converted to minutes, or 0 if the string is invalid.
+     */
+    public static int hourStringToMinutes(String hours) {
+        return hours != null && Parser.isInteger(hours)
+                ? Integer.parseInt(hours) * 60 : 0;
+    }
 }

@@ -35,10 +35,8 @@ public class FindFreeTimesCommand extends Command {
             String[] temp2 = temp.length > 1 ? temp[1].split(":", 2) : null;
             this.hoursString = temp2 == null || temp2.length <= 1 ? null : temp2[0];
             this.minuteString = temp2 != null && temp2.length > 1 ? temp2[1] : null;
-            this.minutes += hoursString != null && Parser.isInteger(hoursString)
-                    ? Integer.parseInt(hoursString) * 60 : 0;
-            this.minutes += minuteString != null && Parser.isInteger(minuteString)
-                    ? Integer.parseInt(minuteString) : 0;
+            this.minutes += Parser.hourStringToMinutes(hoursString);
+            this.minutes += Parser.stringToMinutes(minuteString);
         }
         current = LocalDateTime.now();
     }
@@ -61,6 +59,7 @@ public class FindFreeTimesCommand extends Command {
             return "Time given is invalid, try again! (Format: HH:MM)";
         }
         ArrayList<Event> eventList = tasks.getAllEvents();
+        assert eventList != null : "getAllEvents() method failed";
         eventList.sort(Comparator.comparing(Event::getStart));
         LocalDateTime startFreeTime = current;
         LocalDateTime endFreeTime = null;
@@ -78,7 +77,6 @@ public class FindFreeTimesCommand extends Command {
             }
             endFreeTime = event.getStart();
             if (startFreeTime.until(endFreeTime.plusMinutes(1), ChronoUnit.MINUTES) >= minutes) {
-                System.out.println("End Time:" + endFreeTime);
                 break;
             } else {
                 startFreeTime = event.getEnd();
