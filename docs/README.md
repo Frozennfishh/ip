@@ -8,13 +8,13 @@ The new and improved version of Duke, __Ekud__ is:
 - ~~Fast~~ **_ULTRA_** FAST to use <br/>
 
   Steps to download:<br/>
-1. Download **ekud.jar** from [here](https://github.com/Frozennfishh/ip/releases/tag/v0.1)<br/>
+1. Download **ekud.jar** from [here](https://github.com/Frozennfishh/ip/releases/tag/v0.1
 2. Move it to a folder (e.g. Ekud)<br/>
 3. Open the terminal and navigate to the folder created<br/>
 4. Run the command `java -jar "ekud.jar"`<br/>
 5. Add your tasks.<br/>
-6. Let it manage your tasks for you 🐈<br/>
-   And it is **FREE**! <br/>
+6. Let it manage your tasks for you 🐈 </br>
+   And it is **FREE**!
 
 
 > [!NOTE]
