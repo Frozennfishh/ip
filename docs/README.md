@@ -2,18 +2,18 @@
 
 > “I have studied many philosophers and many cats. The wisdom of cats is infinitely superior.” – Hippolyte Taine
 
-The new and improved version of Duke, Ekud is:
+The new and improved version of Duke, __Ekud__ is:
 - Text-based
 - Easy to learn
-- ~~Fast~~ **_ULTRA_** FAST to use <br/> <br/>
+- ~~Fast~~ **_ULTRA_** FAST to use <br/>
 
-  Steps to download:
-1. Download **ekud.jar** from [here](https://github.com/Frozennfishh/ip/releases/tag/v0.1)
-2. Move it to a folder (e.g. Ekud)
-3. Open the terminal and navigate to the folder created
-4. Run the command `java -jar "ekud.jar"`
-5. Add your tasks.
-6. Let it manage your tasks for you 🐈
+  Steps to download:<br/>
+1. Download **ekud.jar** from [here](https://github.com/Frozennfishh/ip/releases/tag/v0.1)<br/>
+2. Move it to a folder (e.g. Ekud)<br/>
+3. Open the terminal and navigate to the folder created<br/>
+4. Run the command `java -jar "ekud.jar"`<br/>
+5. Add your tasks.<br/>
+6. Let it manage your tasks for you 🐈<br/>
    And it is **FREE**! <br/>
 
 
