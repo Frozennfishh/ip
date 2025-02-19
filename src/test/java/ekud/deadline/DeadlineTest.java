@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 import ekud.tasks.Deadline;
 
 public class DeadlineTest {
-    Deadline deadlineNoDate = new Deadline("task1", "tomorrow", 0);
-    Deadline deadlineWithDate = new Deadline("task2", "25/03/2025 1800", 0);
+    private Deadline deadlineNoDate = new Deadline("task1", "tomorrow", 0);
+    private Deadline deadlineWithDate = new Deadline("task2", "25/03/2025 1800", 0);
 
     @Test
     public void deadlineNoDateDisplayTest() {

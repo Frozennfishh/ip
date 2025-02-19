@@ -6,8 +6,6 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
-import ekud.command.ExitCommand;
-
 public class ParserTest {
     @Test
     public void isNotIntegerTest1() {
