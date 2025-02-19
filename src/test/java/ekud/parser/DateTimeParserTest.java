@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 
 public class DateTimeParserTest {
+    //Arbituary numbers used for naming due to the inputs being the same, just in different format
     @Test
     public void parseDateTimeTest1() {
         assertEquals(LocalDateTime.of(2019, 12, 2, 18, 00), DateTimeParser.parseDateTime("2/12/2019 1800"));

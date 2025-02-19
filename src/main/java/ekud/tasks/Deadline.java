@@ -66,7 +66,7 @@ public class Deadline extends Task {
      *
      * @return The raw due date string.
      */
-    public String getDue_string() {
+    public String getDueString() {
         return this.dueString;
     }
 

@@ -96,7 +96,7 @@ public class Storage {
                 if (task instanceof Todo) {
                     writer.write("T|" + task.getName() + "|" + task.getDone() + "\n");
                 } else if (task instanceof Deadline d) {
-                    writer.write("D|" + d.getName() + "|" + d.getDue_string() + "|" + d.getDone() + "\n");
+                    writer.write("D|" + d.getName() + "|" + d.getDueString() + "|" + d.getDone() + "\n");
                 } else if (task instanceof Event e) {
                     writer.write("E|" + e.getName() + "|" + e.getStart_string() + "|"
                             + e.getEnd_string() + "|" + e.getDone() + "\n");
