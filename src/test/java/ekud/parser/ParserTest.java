@@ -6,6 +6,8 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
+import ekud.command.ExitCommand;
+
 public class ParserTest {
     @Test
     public void isNotIntegerTest1() {
@@ -19,6 +21,17 @@ public class ParserTest {
 
     @Test
     public void getDateTest() {
-        assertEquals(LocalDate.of(2019, 12, 2), Parser.getDate("02 December 2019"));
+        assertEquals(LocalDate.of(2019, 12, 2),
+                Parser.getDate("02 December 2019"));
+    }
+
+    @Test
+    public void stringToMinutesTest() {
+        assertEquals(45, Parser.stringToMinutes("45"));
+    }
+
+    @Test
+    public void hourStringToMinutesTest() {
+        assertEquals(120, Parser.hourStringToMinutes("2"));
     }
 }
