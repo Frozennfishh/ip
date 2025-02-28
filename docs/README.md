@@ -171,6 +171,6 @@ Here are the time slots that are available on 2025-03-26:
 - [x] Automatically saved and easily exportable
 - [x] Colour coded messages that change depending on input
 
-## Coming Soon!
+## Coming Soon:
 - [ ] Sorting by deadline and/or name
 - [ ] Tagging tasks by types
