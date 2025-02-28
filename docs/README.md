@@ -31,7 +31,7 @@ The new and improved version of Duke, __Ekud__ is:
 
 Command: `todo (TASK_NAME)`
 
-Adds a task to the tasklist.
+Adds a task to the task list.
 
 Example: `deadline homework`
 
