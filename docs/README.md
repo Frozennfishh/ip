@@ -67,7 +67,7 @@ Command: `event (TASK_NAME) /from (START_DATE_TIME) /to (END_DATE_TIME)`
 
 Adds a task with a given start and end time.
 
-Start and end times can be given and noted down as a date and time! (In the form `DD/MM/YYYY` or `DD/MM/YY HHMM`)
+Start and end times can be given and noted down as a date and time. (In the form `DD/MM/YYYY` or `DD/MM/YY HHMM`)
 
 Example: `event party /from 26/03/2025 0800 /to 26/03/2025 1600`
 
