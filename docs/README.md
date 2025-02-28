@@ -13,8 +13,8 @@ The new and improved version of Duke, __Ekud__ is:
 3. Open the terminal and navigate to the folder created<br/>
 4. Run the command `java -jar "ekud.jar"`<br/>
 5. Add your tasks.<br/>
-6. Let it manage your tasks for you 🐈 </br>
-   And it is **_FREE_**!
+   6. Let it manage your tasks for you 🐈 </br>
+      And it is **_FREE_**!
 
 
 > [!NOTE]
