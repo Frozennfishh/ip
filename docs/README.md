@@ -163,7 +163,7 @@ Here are the time slots that are available on 2025-03-26:
 1600: to 00:00
 ```
 
-## Features!
+## Features:
 - [x] Managing Tasks
 - [x] Managing Deadlines, To-dos and Events
 - [x] Searches Tasks in the list by date and keywords
