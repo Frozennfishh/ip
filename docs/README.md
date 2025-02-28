@@ -49,7 +49,7 @@ Command: `deadline (TASK_NAME) /by (DEADLINE)`
 
 Adds a task with a set deadline.
 
-Deadline can be given and noted down as a date and time! (In the form `DD/MM/YYYY` or `DD/MM/YY HHMM`)
+Deadline can be given and noted down as a date and time. (In the form `DD/MM/YYYY` or `DD/MM/YY HHMM`)
 
 Example: `deadline homework /by 25/03/2025 2359`
 
